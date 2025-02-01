@@ -17,6 +17,8 @@ import {
 import axios from "axios"; // Import axios for HTTP requests
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 const industries = ["Technology", "Healthcare", "Finance", "Education", "Retail"];
 const services = [
@@ -138,6 +140,15 @@ export default function VendorRegistration() {
     }, 2000);
   };
 
+  const toggleSelection = (type, value) => {
+    setFormData((prevState) => {
+      const selectedItems = prevState[type].includes(value)
+        ? prevState[type].filter((item) => item !== value)
+        : [...prevState[type], value];
+      return { ...prevState, [type]: selectedItems };
+    });
+  };
+
   return (
     <Container
       maxWidth="sm"
@@ -196,52 +207,54 @@ export default function VendorRegistration() {
             },
           }}
         />
-        <TextField
-          fullWidth
-          label="First Name"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter your first name"
-          margin="normal"
-          variant="outlined"
-          error={!!errors.firstName}
-          helperText={errors.firstName}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 45,
-              borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
-            },
-          }}
-        />
-        <TextField
-          fullWidth
-          label="Last Name"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter your last name"
-          margin="normal"
-          variant="outlined"
-          error={!!errors.lastName}
-          helperText={errors.lastName}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 45,
-              borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
-            },
-          }}
-        />
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+          <TextField
+            fullWidth
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your first name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.firstName}
+            helperText={errors.firstName}
+            InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 45,
+                borderRadius: 12,
+                fontSize: '12px' // Reduce placeholder size
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your last name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.lastName}
+            helperText={errors.lastName}
+            InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 45,
+                borderRadius: 12,
+                fontSize: '12px' // Reduce placeholder size
+              },
+            }}
+          />
+        </Box>
         <TextField
           fullWidth
           label="Email"
@@ -339,113 +352,51 @@ export default function VendorRegistration() {
         />
 
         {/* Industries Multi-Select */}
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Industries</InputLabel>
         <FormControl fullWidth margin="normal">
-          <InputLabel style={{ color: "var(--text-color)",fontSize:'12px' }}>Industries</InputLabel>
-          <Select
-            multiple
-            value={formData.selectedIndustries}
-            onChange={handleIndustryChange}
-            style={{
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 45,
-              borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
-            }}
-            input={<OutlinedInput label="Industries" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip
-                    key={value}
-                    label={value}
-                    style={{
-                      color: "var(--text-color)",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: 60,
-                    }}
-                  />
-                ))}
-              </Box>
-            )}
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  backgroundColor: "var(--background-color)",
-                  color: "var(--text-color)",
-                },
-              },
-            }}
-          >
-            {industries.map((industry) =>
-              (
-                <MenuItem
-                  key={industry}
-                  value={industry}
-                  style={{
-                    backgroundColor: formData.selectedIndustries.includes(industry) ? "var(--border-color)" : "var(--background-color)",
-                    color: formData.selectedIndustries.includes(industry) ? "var(--button-text-color)" : "var(--text-color)",
-                  }}
-                >
-                  {industry}
-                </MenuItem>
-              )
-            )}
-          </Select>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+            {industries.map((industry) => (
+              <Chip
+                key={industry}
+                label={industry}
+                onClick={() => toggleSelection('selectedIndustries', industry)}
+                icon={formData.selectedIndustries.includes(industry) ? <CloseIcon /> : <AddIcon />}
+                style={{
+                  backgroundColor: formData.selectedIndustries.includes(industry) ? "white" : "var(--background-color)",
+                  color: formData.selectedIndustries.includes(industry) ? "black" : "var(--text-color)",
+                  border: "1px solid var(--border-color)",
+                  borderRadius: 20,
+                  cursor: 'pointer',
+                  padding: '0 8px',
+                  height: 30,
+                }}
+              />
+            ))}
+          </Box>
         </FormControl>
 
         {/* Services Multi-Select */}
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services</InputLabel>
         <FormControl fullWidth margin="normal">
-          <InputLabel style={{ color: "var(--text-color)",fontSize:'12px' }}>Services</InputLabel>
-          <Select
-            multiple
-            value={formData.selectedServices}
-            onChange={handleServicesChange}
-            style={{
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 45,
-              borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
-            }}
-            input={<OutlinedInput label="Services" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip
-                    key={value}
-                    label={value}
-                    style={{
-                      color: "var(--text-color)",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: 60,
-                    }}
-                  />
-                ))}
-              </Box>
-            )}
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  backgroundColor: "var(--background-color)",
-                  color: "var(--text-color)",
-                },
-              },
-            }}
-          >
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1}}>
             {services.map((service) => (
-              <MenuItem
+              <Chip
                 key={service}
-                value={service}
+                label={service}
+                onClick={() => toggleSelection('selectedServices', service)}
+                icon={formData.selectedServices.includes(service) ? <CloseIcon /> : <AddIcon />}
                 style={{
-                  backgroundColor: formData.selectedServices.includes(service) ? "var(--border-color)" : "var(--background-color)",
-                  color: formData.selectedServices.includes(service) ? "var(--button-text-color)" : "var(--text-color)",
+                  backgroundColor: formData.selectedServices.includes(service) ? "white" : "var(--background-color)",
+                  color: formData.selectedServices.includes(service) ? "black" : "var(--text-color)",
+                  border: "1px solid var(--border-color)",
+                  borderRadius: 20,
+                  cursor: 'pointer',
+                  padding: '0 8px',
+                  height: 30,
                 }}
-              >
-                {service}
-              </MenuItem>
+              />
             ))}
-          </Select>
+          </Box>
         </FormControl>
 
         <TextField
