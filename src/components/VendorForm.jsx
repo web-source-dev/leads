@@ -127,6 +127,7 @@ export default function VendorRegistration() {
         setSuccess("Request submitted successfully!");
         setTimeout(() => {
           setSuccess("")
+           window.location.href = "https://www.reachly.ca/"; // Redirect to external site
         }, 3000);
         console.log("Form submitted successfully:", response.data);
         setFormData({
