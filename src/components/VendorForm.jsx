@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -54,6 +54,8 @@ export default function VendorRegistration() {
     setFormData({ ...formData, selectedServices: event.target.value });
   };
 
+  const [error,setError] = useState('')
+  const [success,setSuccess] = useState('')
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -93,11 +95,17 @@ export default function VendorRegistration() {
     const phonePattern = /^[0-9]+$/;
 
     if (!formData.companyName || !formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.minimumBudget || formData.selectedIndustries.length === 0 || formData.selectedServices.length === 0) {
-      toast.error("Please fill in all fields");
+      setError("Please fill in all fields");
+      setTimeout(() => {
+        setError("")
+      }, 3000);
       return;
     }
-    if(!formData.agreeToTerms){
-      toast.error("Please agree to the terms and conditions");
+    if (!formData.agreeToTerms) {
+      setError("Please agree to the terms and conditions");
+      setTimeout(() => {
+        setError("")
+      }, 3000);
       return;
     }
     if (!emailPattern.test(formData.email)) {
@@ -116,7 +124,10 @@ export default function VendorRegistration() {
     setTimeout(async () => {
       try {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/vendor`, formData);
-        toast.success("Form submitted successfully!");
+        setSuccess("Request submitted successfully!");
+        setTimeout(() => {
+          setSuccess("")
+        }, 3000);
         console.log("Form submitted successfully:", response.data);
         setFormData({
           companyName: "",
@@ -132,7 +143,10 @@ export default function VendorRegistration() {
           agreeToTerms: false,
         });
       } catch (error) {
-        toast.error("Error submitting form. Please try again.");
+        setError('Email Already Exists or Invalid Attempt');
+        setTimeout(() => {
+          setError("")
+        }, 3000);
         console.error("Error submitting form:", error);
       } finally {
         setLoading(false);
@@ -153,8 +167,8 @@ export default function VendorRegistration() {
     <Container
       maxWidth="sm"
       sx={{
-        mt: 2,
-        p: 4,
+        mt: 1,
+        p: 2,
         backgroundColor: "var(--background-color)",
         color: "var(--text-color)",
         border: "1px solid var(--border-color)",
@@ -196,7 +210,7 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.companyName}
           helperText={errors.companyName}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -220,7 +234,7 @@ export default function VendorRegistration() {
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
-            InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
@@ -243,7 +257,7 @@ export default function VendorRegistration() {
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
-            InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
@@ -268,7 +282,7 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.email}
           helperText={errors.email}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -292,7 +306,7 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.phone}
           helperText={errors.phone}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -315,7 +329,7 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.companyWebsite}
           helperText={errors.companyWebsite}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -326,31 +340,29 @@ export default function VendorRegistration() {
             },
           }}
         />
-        <TextField
-          fullWidth
-          label="Minimum Budget Accepted per Year"
-          name="minimumBudget"
-          value={formData.minimumBudget}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter minimum budget"
-          margin="normal"
-          variant="outlined"
-          type="number"
-          error={!!errors.minimumBudget}
-          helperText={errors.minimumBudget}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
-          InputProps={{
-            style: {
+        <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
+          <InputLabel style={{ color: "var(--text-color)", fontSize: '12px' }}>Minimum Budget Accepted per Year</InputLabel>
+          <Select
+            name="minimumBudget"
+            value={formData.minimumBudget}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            displayEmpty
+            style={{
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
-            },
-          }}
-        />
-
+              fontSize: '12px'
+            }}
+          >
+            <MenuItem value="" disabled></MenuItem>
+            <MenuItem value="10000">$10,000</MenuItem>
+            <MenuItem value="25000">$25,000</MenuItem>
+            <MenuItem value="50000">$50,000</MenuItem>
+            <MenuItem value="100000">$100,000+</MenuItem>
+          </Select>
+        </FormControl>
         {/* Industries Multi-Select */}
         <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Industries</InputLabel>
         <FormControl fullWidth margin="normal">
@@ -378,7 +390,7 @@ export default function VendorRegistration() {
         {/* Services Multi-Select */}
         <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services</InputLabel>
         <FormControl fullWidth margin="normal">
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1}}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {services.map((service) => (
               <Chip
                 key={service}
@@ -413,7 +425,7 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.additionalInfo}
           helperText={errors.additionalInfo}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -450,7 +462,7 @@ export default function VendorRegistration() {
           sx={{
             mt: 4,
             backgroundColor: loading ? "gray" : "var(--button-background-color)",
-            color: "var(--button-text-color)",
+            color:   loading ? "white" : "var(--button-text-color)",
             height: 45,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
@@ -458,19 +470,11 @@ export default function VendorRegistration() {
         >
           {loading ? "Submitting..." : "Register"}
         </Button>
+        {/* error color red */}
+        {error && <Box sx={{ mt: 2, color:'red' }}>{error}</Box>}
+        {/* success color green */}
+        {success && <Box sx={{ mt: 2, color:'green' }}>{success}</Box>}
       </Box>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
     </Container>
   );
 }
