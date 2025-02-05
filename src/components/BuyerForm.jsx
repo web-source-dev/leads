@@ -92,28 +92,42 @@ const BuyerForm = () => {
     }));
   };
 
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
     if (!formData.companyName || !formData.firstName || !formData.lastName || !formData.email || !formData.companySize || formData.industries.length === 0 || formData.services.some(service => !service.service || !service.timeframe || !service.budget)) {
-      toast.error("Please fill in all fields");
+      setError("Please fill in all fields");
+      setTimeout(() => {
+        setError('');
+      }, 3000);
       return;
     }
     if (!emailPattern.test(formData.email)) {
-      toast.error("Please enter a valid email address.");
+      setError('Please enter a valid email address');
+      setTimeout(() => {
+        setError('');
+      }, 3000);
       return;
     }
     if (formData.companyWebsite && !urlPattern.test(formData.companyWebsite)) {
-      toast.error("Please enter a valid website URL.");
+      setError('Please enter a valid website URL');
+      setTimeout(() => {
+        setError('');
+      }, 3000);
       return;
     }
     setLoading(true);
     setTimeout(async () => {
       try {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
-        toast.success("Form submitted successfully!");
+        setSuccess('Form submitted successfully')
+        setTimeout(() => {
+          setSuccess('')
+        }, 3000);
         console.log("Form submitted successfully:", response.data);
         setFormData({
           companyName: '',
@@ -127,7 +141,10 @@ const BuyerForm = () => {
           services: [{ service: '', timeframe: '', budget: '' }]
         });
       } catch (error) {
-        toast.error("Error submitting form. Please try again.");
+        setError("Error submitting form. Please try again");
+        setTimeout(() => {
+          setError('')
+        }, 3000);
         console.error("Error submitting form:", error);
       } finally {
         setLoading(false);
@@ -139,8 +156,8 @@ const BuyerForm = () => {
     <Container
       maxWidth="sm"
       sx={{
-        mt: 2,
-        p: 4,
+        mt: 1,
+        p: 2,
         backgroundColor: "var(--background-color)",
         color: "var(--text-color)",
         border: "1px solid var(--border-color)",
@@ -182,7 +199,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyName}
           helperText={errors.companyName}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -193,56 +210,54 @@ const BuyerForm = () => {
             },
           }}
         />
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="First Name"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your first name"
-              margin="normal"
-              variant="outlined"
-              error={!!errors.firstName}
-              helperText={errors.firstName}
-              InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 45,
-                  borderRadius: 12,
-                  fontSize: '12px' // Reduce placeholder size
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Last Name"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your last name"
-              margin="normal"
-              variant="outlined"
-              error={!!errors.lastName}
-              helperText={errors.lastName}
-              InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 45,
-                  borderRadius: 12,
-                  fontSize: '12px' // Reduce placeholder size
-                },
-              }}
-            />
-          </Grid>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+          <TextField
+            fullWidth
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your first name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.firstName}
+            helperText={errors.firstName}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 45,
+                borderRadius: 12,
+                fontSize: '12px' // Reduce placeholder size
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your last name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.lastName}
+            helperText={errors.lastName}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 45,
+                borderRadius: 12,
+                fontSize: '12px' // Reduce placeholder size
+              },
+            }}
+          />
+        </Box>
         <TextField
           fullWidth
           label="Email"
@@ -256,7 +271,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.email}
           helperText={errors.email}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -279,7 +294,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyWebsite}
           helperText={errors.companyWebsite}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -301,7 +316,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companySize}
           helperText={errors.companySize}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -348,11 +363,11 @@ const BuyerForm = () => {
                 icon={formData.industries.includes(option.name) ? <CloseIcon /> : option.icon}
                 onClick={() => handleIndustrySelect(option.name)}
                 sx={{
-                  backgroundColor: formData.industries.includes(option.name) ? "var(--button-background-color)" : "var(--background-color)",
+                  backgroundColor: formData.industries.includes(option.name) ? "white" : "var(--background-color)",
                   color: formData.industries.includes(option.name) ? "var(--button-text-color)" : "var(--text-color)",
                   border: "1px solid var(--border-color)",
                   '&:hover': {
-                    backgroundColor: formData.industries.includes(option.name) ? "var(--button-background-color)" : "var(--background-color)",
+                    backgroundColor: formData.industries.includes(option.name) ? "white" : "var(--background-color)",
                   }
                 }}
               />
@@ -389,7 +404,7 @@ const BuyerForm = () => {
                   select
                   error={!!errors[`service${index}`]}
                   helperText={errors[`service${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
                   InputProps={{
                     style: {
                       color: "var(--text-color)",
@@ -433,7 +448,7 @@ const BuyerForm = () => {
                   select
                   error={!!errors[`timeframe${index}`]}
                   helperText={errors[`timeframe${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
                   InputProps={{
                     style: {
                       color: "var(--text-color)",
@@ -477,7 +492,7 @@ const BuyerForm = () => {
                   select
                   error={!!errors[`budget${index}`]}
                   helperText={errors[`budget${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
                   InputProps={{
                     style: {
                       color: "var(--text-color)",
@@ -515,7 +530,7 @@ const BuyerForm = () => {
           </Box>
         ))}
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3,borderRadius:2,border: "1px solid var(--border-color1)" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
           <IconButton
             color="primary"
             onClick={handleAddService}
@@ -548,7 +563,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.additionalInfo}
           helperText={errors.additionalInfo}
-          InputLabelProps={{ style: { color: "var(--text-color)",fontSize:'12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -563,8 +578,8 @@ const BuyerForm = () => {
           variant="contained"
           sx={{
             mt: 4,
-            backgroundColor: loading ? "gray" : "var(--button-background-color)",
-            color: "var(--button-text-color)",
+            backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
+            color: 'white',
             height: 45,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
@@ -574,21 +589,14 @@ const BuyerForm = () => {
         >
           {loading ? "Submitting..." : "Submit Request"}
         </Button>
+
+        {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
+        {success && <Box sx={{ mt: 2, color: 'green' }}>{success}</Box>}
       </Box>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+
     </Container>
   );
 };
 
 export default BuyerForm;
+
