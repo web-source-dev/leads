@@ -340,8 +340,10 @@ export default function VendorRegistration() {
             },
           }}
         />
-        <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
-          <InputLabel style={{ color: "var(--text-color)", fontSize: '12px' }}>Minimum Budget Accepted per Year</InputLabel>
+                <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
+          <InputLabel style={{ color: "var(--text-color)", fontSize: '12px' }}>
+            Minimum Budget Accepted per Year
+          </InputLabel>
           <Select
             name="minimumBudget"
             value={formData.minimumBudget}
@@ -351,16 +353,24 @@ export default function VendorRegistration() {
             style={{
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
+              backgroundColor: "#121212",
               height: 45,
               borderRadius: 12,
               fontSize: '12px'
             }}
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  backgroundColor: "#121212", // Background color for dropdown menu
+                },
+              },
+            }}
           >
-            <MenuItem value="" disabled></MenuItem>
-            <MenuItem value="10000">$10,000</MenuItem>
-            <MenuItem value="25000">$25,000</MenuItem>
-            <MenuItem value="50000">$50,000</MenuItem>
-            <MenuItem value="100000">$100,000+</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="" disabled></MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="10000">$10,000</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="25000">$25,000</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="50000">$50,000</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="100000">$100,000+</MenuItem>
           </Select>
         </FormControl>
         {/* Industries Multi-Select */}
