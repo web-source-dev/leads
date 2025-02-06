@@ -471,6 +471,16 @@ export default function VendorRegistration() {
             </Typography>
           }
         />
+        <Typography
+  variant="body2"
+  color="var(--text-color)"
+  style={{ marginTop: '8px', fontSize: '12px' }}
+>
+  By checking this box, you agree to our{" "}
+  <a href="https://www.reachly.ca/terms-and-conditions" target="_blank" style={{ color: "var(--button-background-color)" }}>
+    terms and conditions
+  </a>.
+</Typography>
 
         {/* Submit Button */}
         <Button
