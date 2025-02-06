@@ -9,23 +9,46 @@ import {
   Box,
   Grid,
   Chip,
-  Select,
-  OutlinedInput,
-  FormControl,
-  InputLabel
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-
+import Tooltip from '@mui/material/Tooltip';
 const industryOptions = [
-  { name: "Technology", icon: <AddIcon /> },
+  { name: "Retail & E-commerce", icon: <AddIcon /> },
+  { name: "Marketing & Advertising", icon: <AddIcon /> },
+  { name: "Human Resources (HRTech)", icon: <AddIcon /> },
+  { name: "Manufacturing & Supply Chain", icon: <AddIcon /> },
+  { name: "Real Estate", icon: <AddIcon /> },
+  { name: "Professional Services", icon: <AddIcon /> },
+  { name: "Insurance & Financial Services", icon: <AddIcon /> },
+  { name: "Telecommunications & IT Services", icon: <AddIcon /> },
+  { name: "Consumer Goods & Services", icon: <AddIcon /> },
+  { name: "Energy & Utilities", icon: <AddIcon /> },
+  { name: "Media & Entertainment", icon: <AddIcon /> },
+  { name: "Agriculture & Forestry", icon: <AddIcon /> },
+  { name: "Information Technology (IT)", icon: <AddIcon /> },
+  { name: "Financial Services", icon: <AddIcon /> },
   { name: "Healthcare", icon: <AddIcon /> },
-  { name: "Education", icon: <AddIcon /> }
+  { name: "Education (EdTech)", icon: <AddIcon /> }
+];
+
+const servicesBuyer = [
+  "CRM & Sales Automation",
+  "Marketing Automation",
+  "Cybersecurity & Data Protection",
+  "Project Management Software",
+  "Business Intelligence & Analytics",
+  "Financial & Accounting Tools",
+  "HR & Recruitment Solutions",
+  "E-commerce Platforms",
+  "Document Management & Collaboration Tools",
+  "Sales Automation",
+  "Customer Support & Helpdesk Tools",
+  "Compliance & Risk Management Software"
 ];
 
 const BuyerForm = () => {
@@ -377,161 +400,185 @@ const BuyerForm = () => {
         </Box>
 
         {formData.services.map((service, index) => (
-          <Box key={index} sx={{ mt: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
-                Service Request {index + 1}
-              </Typography>
-              {index > 0 && (
-                <IconButton
-                  color="secondary"
-                  onClick={() => handleRemoveService(index)}
-                  sx={{
-                    color: "var(--text-color)",
+  <Box key={index} sx={{ mt: 3 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
+        Service Request {index + 1}
+      </Typography>
+      {index > 0 && (
+        <IconButton
+          color="secondary"
+          onClick={() => handleRemoveService(index)}
+          sx={{
+            color: "var(--text-color)",
+          }}
+        >
+          <RemoveCircleOutlineIcon />
+        </IconButton>
+      )}
+    </Box>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a service"
+          variant="outlined"
+          value={service.service}
+          onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
+          select
+          error={!!errors[`service${index}`]}
+          helperText={errors[`service${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 45,
+              borderRadius: 12,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              fontSize: '12px',
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: {
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                  maxHeight: 200,
+                  overflowY: 'auto',
+                },
+              },
+            },
+          }}
+        >
+          {servicesBuyer.map((serviceOption) => (
+            <MenuItem
+              key={serviceOption}
+              value={serviceOption}
+              style={{
+                backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
+                color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
+                fontSize: '10px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              width: '100%',
+              }}
+            >
+              <Tooltip title={serviceOption} arrow>
+                <span
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: 'block',
                   }}
                 >
-                  <RemoveCircleOutlineIcon />
-                </IconButton>
-              )}
-            </Box>
-            <Grid container spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  label="Select a service"
-                  variant="outlined"
-                  value={service.service}
-                  onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
-                  select
-                  error={!!errors[`service${index}`]}
-                  helperText={errors[`service${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
-                  InputProps={{
-                    style: {
-                      color: "var(--text-color)",
-                      border: "1px solid var(--border-color)",
-                      height: 45,
-                      borderRadius: 12,
-                    },
-                  }}
-                  SelectProps={{
-                    MenuProps: {
-                      PaperProps: {
-                        style: {
-                          backgroundColor: "var(--background-color)",
-                          color: "var(--text-color)",
-                        },
-                      },
-                    },
-                  }}
-                >
-                  {["Consulting", "Development", "Design"].map((serviceOption) => (
-                    <MenuItem
-                      key={serviceOption}
-                      value={serviceOption}
-                      style={{
-                        backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
-                        color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
-                      }}
-                    >
-                      {serviceOption}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  label="Select a timeframe"
-                  variant="outlined"
-                  value={service.timeframe}
-                  onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
-                  select
-                  error={!!errors[`timeframe${index}`]}
-                  helperText={errors[`timeframe${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
-                  InputProps={{
-                    style: {
-                      color: "var(--text-color)",
-                      border: "1px solid var(--border-color)",
-                      height: 45,
-                      borderRadius: 12,
-                    },
-                  }}
-                  SelectProps={{
-                    MenuProps: {
-                      PaperProps: {
-                        style: {
-                          backgroundColor: "var(--background-color)",
-                          color: "var(--text-color)",
-                        },
-                      },
-                    },
-                  }}
-                >
-                  {["1-2 weeks", "1 month", "3 months"].map((timeframe) => (
-                    <MenuItem
-                      key={timeframe}
-                      value={timeframe}
-                      style={{
-                        backgroundColor: service.timeframe === timeframe ? "var(--border-color)" : "var(--background-color)",
-                        color: service.timeframe === timeframe ? "var(--button-text-color)" : "var(--text-color)",
-                      }}
-                    >
-                      {timeframe}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  label="Select a budget"
-                  variant="outlined"
-                  value={service.budget}
-                  onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
-                  select
-                  error={!!errors[`budget${index}`]}
-                  helperText={errors[`budget${index}`]}
-                  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
-                  InputProps={{
-                    style: {
-                      color: "var(--text-color)",
-                      border: "1px solid var(--border-color)",
-                      height: 45,
-                      borderRadius: 12,
-                    },
-                  }}
-                  SelectProps={{
-                    MenuProps: {
-                      PaperProps: {
-                        style: {
-                          backgroundColor: "var(--background-color)",
-                          color: "var(--text-color)",
-                        },
-                      },
-                    },
-                  }}
-                >
-                  {["$1000-$4500", "$4500-$10000", "$10000+"].map((budget) => (
-                    <MenuItem
-                      key={budget}
-                      value={budget}
-                      style={{
-                        backgroundColor: service.budget === budget ? "var(--border-color)" : "var(--background-color)",
-                        color: service.budget === budget ? "var(--button-text-color)" : "var(--text-color)",
-                      }}
-                    >
-                      {budget}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-            </Grid>
-          </Box>
-        ))}
+                  {serviceOption}
+                </span>
+              </Tooltip>
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a timeframe"
+          variant="outlined"
+          value={service.timeframe}
+          onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
+          select
+          error={!!errors[`timeframe${index}`]}
+          helperText={errors[`timeframe${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 45,
+              borderRadius: 12,
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: {
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                },
+              },
+            },
+          }}
+        >
+          {["1-2 weeks", "1 month", "3 months"].map((timeframe) => (
+            <MenuItem
+              key={timeframe}
+              value={timeframe}
+              style={{
+                backgroundColor: service.timeframe === timeframe ? "var(--border-color)" : "var(--background-color)",
+                color: service.timeframe === timeframe ? "var(--button-text-color)" : "var(--text-color)",
+              }}
+            >
+              {timeframe}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a budget"
+          variant="outlined"
+          value={service.budget}
+          onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
+          select
+          error={!!errors[`budget${index}`]}
+          helperText={errors[`budget${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 45,
+              borderRadius: 12,
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: {
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                },
+              },
+            },
+          }}
+        >
+          {["$5,000+", "$10,000+", "$25,000+","50,000+","100,000+"].map((budget) => (
+            <MenuItem
+              key={budget}
+              value={budget}
+              style={{
+                backgroundColor: service.budget === budget ? "var(--border-color)" : "var(--background-color)",
+                color: service.budget === budget ? "var(--button-text-color)" : "var(--text-color)",
+              }}
+            >
+              {budget}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+    </Grid>
+  </Box>
+))}
+
+        <Box onClick={handleAddService} sx={{ display: 'flex', justifyContent: 'center',cursor:'pointer', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
           <IconButton
             color="primary"
             onClick={handleAddService}
@@ -600,4 +647,3 @@ const BuyerForm = () => {
 };
 
 export default BuyerForm;
-
