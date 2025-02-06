@@ -130,30 +130,47 @@ export default function VendorRegistration() {
     setLoading(true);
     setTimeout(async () => {
       try {
+        // Make the POST request to the backend with form data
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/vendor`, formData);
-        setSuccess("Request submitted successfully!");
-        setTimeout(() => {
-          setSuccess("")
-        }, 3000);
-        console.log("Form submitted successfully:", response.data);
-        setFormData({
-          companyName: "",
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          companyWebsite: "",
-          minimumBudget: "",
-          selectedIndustries: [],
-          selectedServices: [],
-          additionalInfo: "",
-          agreeToTerms: false,
-        });
+      
+        // Check if the response status is success (HTTP status code 200-299)
+        if (response.status >= 200 && response.status < 300) {
+          setSuccess("Request submitted successfully!");
+          setTimeout(() => {
+            setSuccess("");
+          window.top.location.href = "https://www.reachly.ca/";
+          }, 3000);
+      
+          console.log("Form submitted successfully:", response.data);
+      
+          // Reset the form data only if the submission was successful
+          setFormData({
+            companyName: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            companyWebsite: "",
+            minimumBudget: "",
+            selectedIndustries: [],
+            selectedServices: [],
+            additionalInfo: "",
+            agreeToTerms: false,
+          });
+        } else {
+          // Handle if response status is not 2xx (something went wrong)
+          setError("There was an issue with your submission.");
+          setTimeout(() => {
+            setError("");
+          }, 3000);
+        }
       } catch (error) {
-        setError('Email Already Exists or Invalid Attempt');
+        // Handle errors (network issues, server errors, etc.)
+        console.error("Error submitting form:", error);
+        setError('Email already exists or invalid attempt');
         setTimeout(() => {
-          setError("")
-        }, 3000);
+          setError("");
+        }, 3000);      
         console.error("Error submitting form:", error);
       } finally {
         setLoading(false);
