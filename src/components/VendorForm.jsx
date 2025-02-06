@@ -20,13 +20,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 
-const industries = ["Technology", "Healthcare", "Finance", "Education", "Retail"];
+const industries = ["Information Technology (IT)", "Financial Services", "Healthcare", "Education (EdTech)", "Retail & E-commerce","Marketing & Advertising","Human Resources (HRTech)","Manufacturing & Supply Chain","Real Estate","Professional Services"];
 const services = [
-  "Consulting",
-  "Software Development",
-  "Marketing",
-  "Design",
-  "Support",
+  "CRM & Sales Automation",
+  "Marketing Automation",
+  "Cybersecurity & Data Protection",
+  "Project Management Software",
+  "Business Intelligence & Analytics",
+  "Financial & Accounting Tools",
+  "HR & Recruitment Solutions",
+  "E-commerce Platforms",
+  "Document Management & Collaboration Tools",
+  "Sales Automation",
+  "Customer Support & Helpdesk Tools",
+  "Compliance & Risk Management Software"
 ];
 
 export default function VendorRegistration() {
@@ -54,8 +61,8 @@ export default function VendorRegistration() {
     setFormData({ ...formData, selectedServices: event.target.value });
   };
 
-  const [error,setError] = useState('')
-  const [success,setSuccess] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -127,7 +134,6 @@ export default function VendorRegistration() {
         setSuccess("Request submitted successfully!");
         setTimeout(() => {
           setSuccess("")
-          window.top.location.href = "https://www.reachly.ca/";
         }, 3000);
         console.log("Form submitted successfully:", response.data);
         setFormData({
@@ -341,7 +347,7 @@ export default function VendorRegistration() {
             },
           }}
         />
-                <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
+        <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
           <InputLabel style={{ color: "var(--text-color)", fontSize: '12px' }}>
             Minimum Budget Accepted per Year
           </InputLabel>
@@ -368,12 +374,14 @@ export default function VendorRegistration() {
             }}
           >
             <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="" disabled></MenuItem>
-            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="10000">$10,000</MenuItem>
-            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="25000">$25,000</MenuItem>
-            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="50000">$50,000</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="10000">$5,000+</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="10000">$10,000+</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="25000">$25,000+</MenuItem>
+            <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="50000">$50,000+</MenuItem>
             <MenuItem style={{ backgroundColor: "#121212", color: "white" }} value="100000">$100,000+</MenuItem>
           </Select>
         </FormControl>
+
         {/* Industries Multi-Select */}
         <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Industries</InputLabel>
         <FormControl fullWidth margin="normal">
@@ -473,7 +481,7 @@ export default function VendorRegistration() {
           sx={{
             mt: 4,
             backgroundColor: loading ? "gray" : "var(--button-background-color)",
-            color:   loading ? "white" : "var(--button-text-color)",
+            color: loading ? "white" : "var(--button-text-color)",
             height: 45,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
@@ -482,9 +490,9 @@ export default function VendorRegistration() {
           {loading ? "Submitting..." : "Register"}
         </Button>
         {/* error color red */}
-        {error && <Box sx={{ mt: 2, color:'red' }}>{error}</Box>}
+        {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
         {/* success color green */}
-        {success && <Box sx={{ mt: 2, color:'green' }}>{success}</Box>}
+        {success && <Box sx={{ mt: 2, color: 'green' }}>{success}</Box>}
       </Box>
     </Container>
   );
