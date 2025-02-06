@@ -63,6 +63,7 @@ const BuyerForm = () => {
     additionalInfo: '',
     services: [{ service: '', timeframe: '', budget: '' }]
   });
+  console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -146,29 +147,47 @@ const BuyerForm = () => {
     setLoading(true);
     setTimeout(async () => {
       try {
+        // Make the POST request to the backend with form data
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
-        setSuccess('Form submitted successfully')
-        setTimeout(() => {
-          setSuccess('')
-          window.top.location.href = "https://www.reachly.ca/";
-        }, 3000);
-        console.log("Form submitted successfully:", response.data);
-        setFormData({
-          companyName: '',
-          firstName: '',
-          lastName: '',
-          email: '',
-          companyWebsite: '',
-          companySize: '',
-          industries: [],
-          additionalInfo: '',
-          services: [{ service: '', timeframe: '', budget: '' }]
-        });
+      
+        // Check if the response status is success (HTTP status code 200-299)
+        if (response.status >= 200 && response.status < 300) {
+          setSuccess('Form submitted successfully');
+          
+          // After success, redirect to the desired URL after 3 seconds
+          setTimeout(() => {
+            setSuccess('');
+            window.top.location.href = "https://www.reachly.ca/";  // Redirection to home page or other URL
+          }, 3000);
+      
+          console.log("Form submitted successfully:", response.data);
+      
+          // Reset the form data only after successful submission
+          setFormData({
+            companyName: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            companyWebsite: '',
+            companySize: '',
+            industries: [],
+            additionalInfo: '',
+            services: [{ service: '', timeframe: '', budget: '' }]
+          });
+        } else {
+          // Handle case where response status is not in the success range (not 2xx)
+          setError("There was an issue with your form submission.");
+          setTimeout(() => {
+            setError('');
+          }, 3000);
+        }
       } catch (error) {
-        setError("Error submitting form. Please try again");
+        // Handle network errors or any issues during the request
+        console.error("Error submitting form:", error);
+        setError("Error submitting form. Please try again.");
         setTimeout(() => {
-          setError('')
-        }, 3000);
+          setError('');
+        }, 3000);      
         console.error("Error submitting form:", error);
       } finally {
         setLoading(false);
