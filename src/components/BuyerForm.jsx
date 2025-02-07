@@ -106,6 +106,14 @@ const BuyerForm = () => {
     }
     setErrors({ ...errors, [name]: error });
   };
+  // Disable scroll on body when the dropdown is focused
+  const handleDropdownFocus = () => {
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+  };
+
+  const handleDropdownBlur = () => {
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
 
   const handleIndustrySelect = (selectedIndustry) => {
     setFormData((prevState) => ({
@@ -358,9 +366,6 @@ const BuyerForm = () => {
           value={formData.companySize}
           onChange={handleChange}
           onClick={handleDropDownScroll}
-
-      onFocus={handleDropDownScroll} // Prevent scrolling on focus
-      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           select
           margin="normal"
           variant="outlined"
@@ -386,9 +391,8 @@ const BuyerForm = () => {
               },
             },
           }}
-           onMouseDown={handleDropDownScroll} // Prevent scrolling when dropdown is clicked
-      onMouseUp={handleDropDownScroll}   // Prevent scrolling when dropdown interaction ends
-
+      onFocus={handleDropdownFocus} // Prevent scroll on focus
+      onBlur={handleDropdownBlur}   // Restore scroll on blur
         >
           {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
             <MenuItem
