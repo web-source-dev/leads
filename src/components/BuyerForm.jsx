@@ -358,6 +358,9 @@ const BuyerForm = () => {
           value={formData.companySize}
           onChange={handleChange}
           onClick={handleDropDownScroll}
+
+      onFocus={handleDropDownScroll} // Prevent scrolling on focus
+      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           select
           margin="normal"
           variant="outlined"
@@ -415,6 +418,9 @@ const BuyerForm = () => {
       labelId="industry-select-label"
       multiple
       onClick={handleDropDownScroll}
+
+      onFocus={handleDropDownScroll} // Prevent scrolling on focus
+      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
       value={formData.industries}
       onChange={(event) => {
         const selectedIndustries = event.target.value;
@@ -508,6 +514,9 @@ const BuyerForm = () => {
           label="Select a service"
           variant="outlined"
           onClick={handleDropDownScroll}
+
+      onFocus={handleDropDownScroll} // Prevent scrolling on focus
+      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           value={service.service}
           onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
           select
@@ -576,6 +585,9 @@ const BuyerForm = () => {
           label="Select a timeframe"
           variant="outlined"
           onClick={handleDropDownScroll}
+
+      onFocus={handleDropDownScroll} // Prevent scrolling on focus
+      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           value={service.timeframe}
           onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
           select
@@ -621,6 +633,9 @@ const BuyerForm = () => {
           fullWidth
           label="Select a budget"
           onClick={handleDropDownScroll}
+
+      onFocus={handleDropDownScroll} // Prevent scrolling on focus
+      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           variant="outlined"
           value={service.budget}
           onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
@@ -714,7 +729,7 @@ const BuyerForm = () => {
           sx={{
             mt: 4,
             backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
-            color: 'white',
+            color: 'white', // Ensure text color is always white
             height: 50,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
@@ -722,7 +737,7 @@ const BuyerForm = () => {
           type="submit"
           disabled={loading}
         >
-          {loading ? "Submitting..." : "Submit Request"}
+          {loading ? <span style={{ color: 'white' }}>Submitting...</span> : "Submit Request"}
         </Button>
 
         {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
