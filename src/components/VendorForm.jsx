@@ -135,7 +135,7 @@ export default function VendorRegistration() {
       
         // Check if the response status is success (HTTP status code 200-299)
         if (response.status >= 200 && response.status < 300) {
-          setSuccess("Request submitted successfully!");
+          setSuccess("Request submitted. Please check your email for further instructions");
           setTimeout(() => {
             setSuccess("");
           window.top.location.href = "https://www.reachly.ca/";
