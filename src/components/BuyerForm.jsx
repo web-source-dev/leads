@@ -81,6 +81,7 @@ const BuyerForm = () => {
 
   const handleServiceChange = (index, field, value,event) => {
     event.preventDefault(); 
+    event.stopPropagation();
     const updatedServices = [...formData.services];
     updatedServices[index][field] = value;
     setFormData({ ...formData, services: updatedServices });
@@ -88,6 +89,7 @@ const BuyerForm = () => {
 
   const handleChange = (event) => {
     event.preventDefault(); 
+    event.stopPropagation();
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -405,6 +407,7 @@ const BuyerForm = () => {
       multiple
       value={formData.industries}
       onChange={(event) => {
+        event.stopPropagation();
         event.preventDefault();
         const selectedIndustries = event.target.value;
         setFormData((prevState) => ({
