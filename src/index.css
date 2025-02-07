@@ -1,6 +1,6 @@
 /* Light Theme */
 :root {
-  --background-color: #141416;
+  --background-color: #121212;
   --text-color: #e0e0e0;
   --input-background-color: #807b7b;
   --input-text-color: #e0e0e0;
@@ -9,17 +9,22 @@
   --border-color: #424242;
   --border-color1: #424242;
   /* Add more variables as needed */
+
+  --scrollbar-thumb-color: #888;
+  --scrollbar-track-color: #000000;
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --background-color: #141416;
+  --background-color: #121212;
   --text-color: #e0e0e0;
   --input-background-color: #807b7b;
   --input-text-color: #e0e0e0;
   --button-background-color: #4998F8;
   --button-text-color: #000000;
   --border-color: #424242;
+  --scrollbar-thumb-color: #888;
+  --scrollbar-track-color: #000000;
   /* Add more variables as needed */
 }
 /* hide scrollbar */
@@ -45,4 +50,33 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+/* Targeting the PaperProps of the dropdown */
+.MuiPaper-root::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.MuiPaper-root::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color); /* Track background */
+}
+
+.MuiPaper-root::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color); /* Thumb color */
+  border-radius: 4px; /* Rounded thumb */
+}
+
+.MuiPaper-root {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color); /* Thumb and track colors */
+}
+/* Default for PC - Width 170px */
+.responsive-menu-item {
+  width: 170px;
+}
+
+/* Mobile devices - Width 100% */
+@media (max-width: 768px) {
+  .responsive-menu-item {
+    width: 100%;
+  }
 }
