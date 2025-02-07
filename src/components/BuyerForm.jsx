@@ -391,7 +391,7 @@ const BuyerForm = () => {
     },
   }}
   id="companySizeField" // Add an ID to target the input field
-  onClick={() => {
+  onFocus={() => {
     const element = document.getElementById('companySizeField');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
