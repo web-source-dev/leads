@@ -386,6 +386,9 @@ const BuyerForm = () => {
               },
             },
           }}
+           onMouseDown={handleDropDownScroll} // Prevent scrolling when dropdown is clicked
+      onMouseUp={handleDropDownScroll}   // Prevent scrolling when dropdown interaction ends
+
         >
           {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
             <MenuItem
