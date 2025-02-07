@@ -241,14 +241,14 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyName}
           helperText={errors.companyName}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -265,14 +265,14 @@ const BuyerForm = () => {
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
                 height: 45,
                 borderRadius: 12,
-                fontSize: '12px' // Reduce placeholder size
+                fontSize: '14px' // Reduce placeholder size
               },
             }}
           />
@@ -288,14 +288,14 @@ const BuyerForm = () => {
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
                 height: 45,
                 borderRadius: 12,
-                fontSize: '12px' // Reduce placeholder size
+                fontSize: '14px' // Reduce placeholder size
               },
             }}
           />
@@ -313,14 +313,14 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.email}
           helperText={errors.email}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -336,14 +336,14 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyWebsite}
           helperText={errors.companyWebsite}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -358,14 +358,14 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companySize}
           helperText={errors.companySize}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
           SelectProps={{
@@ -496,7 +496,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`service${index}`]}
           helperText={errors[`service${index}`]}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -506,7 +506,7 @@ const BuyerForm = () => {
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              fontSize: '12px',
+              fontSize: '14px',
             },
           }}
           SelectProps={{
@@ -529,7 +529,7 @@ const BuyerForm = () => {
               style={{
                 backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
                 color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
-                fontSize: '12px',
+                fontSize: '14px',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -563,7 +563,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`timeframe${index}`]}
           helperText={errors[`timeframe${index}`]}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -608,7 +608,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`budget${index}`]}
           helperText={errors[`budget${index}`]}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
@@ -679,13 +679,13 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.additionalInfo}
           helperText={errors.additionalInfo}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
