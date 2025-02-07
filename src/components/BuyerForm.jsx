@@ -8,7 +8,7 @@ import {
   IconButton,
   Box,
   Grid,
-  Chip,
+  Chip,InputLabel, FormControl, Checkbox, ListItemText,Select
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -79,13 +79,15 @@ const BuyerForm = () => {
     setFormData({ ...formData, services: updatedServices });
   };
 
-  const handleServiceChange = (index, field, value) => {
+  const handleServiceChange = (index, field, value,event) => {
+    event.preventDefault(); 
     const updatedServices = [...formData.services];
     updatedServices[index][field] = value;
     setFormData({ ...formData, services: updatedServices });
   };
 
   const handleChange = (event) => {
+    event.preventDefault(); 
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -115,7 +117,6 @@ const BuyerForm = () => {
         : [...prevState.industries, selectedIndustry]
     }));
   };
-
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const handleSubmit = async (event) => {
@@ -393,33 +394,84 @@ const BuyerForm = () => {
             </MenuItem>
           ))}
         </TextField>
-
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1 }}>
-            Select Industries
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-            {industryOptions.map((option) => (
-              <Chip
-                key={option.name}
-                label={option.name}
-                icon={formData.industries.includes(option.name) ? <CloseIcon /> : option.icon}
-                onClick={() => handleIndustrySelect(option.name)}
-                sx={{
-                  backgroundColor: formData.industries.includes(option.name) ? "white" : "var(--background-color)",
-                  color: formData.industries.includes(option.name) ? "var(--button-text-color)" : "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  '&:hover': {
-                    backgroundColor: formData.industries.includes(option.name) ? "white" : "var(--background-color)",
-                  }
-                }}
-              />
-            ))}
-          </Box>
+        <Box sx={{ mt: 2 ,borderRadius:12}}>
+  <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1}}>
+    Select Your Industry
+  </Typography>
+  <FormControl fullWidth>
+    <InputLabel id="industry-select-label" sx={{ color: "var(--text-color)" }}>Industries</InputLabel>
+    <Select
+      labelId="industry-select-label"
+      multiple
+      value={formData.industries}
+      onChange={(event) => {
+        event.preventDefault();
+        const selectedIndustries = event.target.value;
+        setFormData((prevState) => ({
+          ...prevState,
+          industries: selectedIndustries
+        }));
+      }}
+      renderValue={(selected) => (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+          {selected.map((industry) => (
+            <Chip 
+              key={industry} 
+              label={industry} 
+              sx={{
+                margin: 0.5,
+                backgroundColor: 'var(--background-color)',
+                color: 'var(--text-color)',
+                border: '1px solid var(--border-color)',
+              }} 
+            />
+          ))}
         </Box>
+      )}
+      MenuProps={{
+        PaperProps: {
+          style: {
+            maxHeight: 200, // Limits the dropdown height (around 4 items visible)
+            overflowY: 'auto', // Enables the scrollbar
+            backgroundColor: 'var(--background-color)', // Apply background color to the dropdown
+          },
+        },
+      }}
+      sx={{
+        color: 'var(--input-text-color)',
+        border: '1px solid var(--border-color)',
+      }}
+    >
+      {industryOptions.map((option) => (
+        <MenuItem
+          key={option.name}
+          value={option.name}
+          sx={{
+            backgroundColor: 'var(--background-color)', // Background color for all items
+            '&:hover': {
+              backgroundColor: 'var(--background-color)', // Disable hover effect
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'var(--background-color)', // Keep selected item background color
+              '&:hover': {
+                backgroundColor: 'var(--background-color)', // Ensure hover is disabled on selected
+              },
+            },
+          }}
+        >
+          <Checkbox checked={formData.industries.includes(option.name)} sx={{ color: 'var(--text-color)' }} />
+          <ListItemText primary={option.name} sx={{ color: 'var(--text-color)' }} />
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+</Box>
 
+        <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 2 }}>
+        Solutions Required
+          </Typography>
         {formData.services.map((service, index) => (
-  <Box key={index} sx={{ mt: 3 }}>
+  <Box key={index} sx={{ mt: 1 }}>
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
         Service Request {index + 1}
@@ -480,7 +532,7 @@ const BuyerForm = () => {
               style={{
                 backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
                 color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
-                fontSize: '10px',
+                fontSize: '12px',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
