@@ -400,7 +400,7 @@ export default function VendorRegistration() {
         </FormControl>
 
         {/* Industries Multi-Select */}
-        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Industries</InputLabel>
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Your Industry</InputLabel>
         <FormControl fullWidth margin="normal">
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {industries.map((industry) => (
@@ -424,7 +424,7 @@ export default function VendorRegistration() {
         </FormControl>
 
         {/* Services Multi-Select */}
-        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services</InputLabel>
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services Provide</InputLabel>
         <FormControl fullWidth margin="normal">
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {services.map((service) => (
