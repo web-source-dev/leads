@@ -234,14 +234,14 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.companyName}
           helperText={errors.companyName}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -258,14 +258,14 @@ export default function VendorRegistration() {
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
                 height: 45,
                 borderRadius: 12,
-                fontSize: '12px' // Reduce placeholder size
+                fontSize: '14px' // Reduce placeholder size
               },
             }}
           />
@@ -281,14 +281,14 @@ export default function VendorRegistration() {
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
                 height: 45,
                 borderRadius: 12,
-                fontSize: '12px' // Reduce placeholder size
+                fontSize: '14px' // Reduce placeholder size
               },
             }}
           />
@@ -306,14 +306,14 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.email}
           helperText={errors.email}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -330,14 +330,14 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.phone}
           helperText={errors.phone}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -353,19 +353,19 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.companyWebsite}
           helperText={errors.companyWebsite}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
         <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
-          <InputLabel style={{ color: "var(--text-color)", fontSize: '12px' }}>
+          <InputLabel style={{ color: "var(--text-color)", fontSize: '14px' }}>
             Minimum Budget Accepted per Year
           </InputLabel>
           <Select
@@ -380,7 +380,7 @@ export default function VendorRegistration() {
               backgroundColor: "#121212",
               height: 45,
               borderRadius: 12,
-              fontSize: '12px'
+              fontSize: '14px'
             }}
             MenuProps={{
               PaperProps: {
@@ -461,13 +461,13 @@ export default function VendorRegistration() {
           variant="outlined"
           error={!!errors.additionalInfo}
           helperText={errors.additionalInfo}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '12px' } }}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               borderRadius: 12,
-              fontSize: '12px' // Reduce placeholder size
+              fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
@@ -491,7 +491,7 @@ export default function VendorRegistration() {
         <Typography
   variant="body2"
   color="var(--text-color)"
-  style={{ marginTop: '8px', fontSize: '12px' }}
+  style={{ marginTop: '8px', fontSize: '14px' }}
 >
   By checking this box, you agree to our{" "}
   <a href="https://www.reachly.ca/terms-and-conditions" target="_blank" style={{ color: "var(--button-background-color)" }}>
