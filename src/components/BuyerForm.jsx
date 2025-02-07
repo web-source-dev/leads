@@ -151,7 +151,7 @@ const BuyerForm = () => {
       
         // Check if the response status is success (HTTP status code 200-299)
         if (response.status >= 200 && response.status < 300) {
-          setSuccess('Form submitted successfully');
+          setSuccess('Request submitted. Please check your email for further instructions');
           
           // After success, redirect to the desired URL after 3 seconds
           setTimeout(() => {
@@ -471,7 +471,7 @@ const BuyerForm = () => {
   <Box key={index} sx={{ mt: 1 }}>
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
-        Service Request {index + 1}
+        Solution {index + 1}
       </Typography>
       {index > 0 && (
         <IconButton
