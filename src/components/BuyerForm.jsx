@@ -115,6 +115,10 @@ const BuyerForm = () => {
         : [...prevState.industries, selectedIndustry]
     }));
   };
+  const handleDropDownScroll = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  }
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const handleSubmit = async (event) => {
@@ -246,7 +250,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -270,7 +274,7 @@ const BuyerForm = () => {
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
-                height: 45,
+                height: 50,
                 borderRadius: 12,
                 fontSize: '14px' // Reduce placeholder size
               },
@@ -293,7 +297,7 @@ const BuyerForm = () => {
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
-                height: 45,
+                height: 50,
                 borderRadius: 12,
                 fontSize: '14px' // Reduce placeholder size
               },
@@ -318,7 +322,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -341,7 +345,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -353,6 +357,7 @@ const BuyerForm = () => {
           name="companySize"
           value={formData.companySize}
           onChange={handleChange}
+          onClick={handleDropDownScroll}
           select
           margin="normal"
           variant="outlined"
@@ -363,7 +368,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -379,7 +384,7 @@ const BuyerForm = () => {
             },
           }}
         >
-          {["Small", "Medium", "Large"].map((size) => (
+          {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
             <MenuItem
               key={size}
               value={size}
@@ -392,15 +397,24 @@ const BuyerForm = () => {
             </MenuItem>
           ))}
         </TextField>
-        <Box sx={{ mt: 2 ,borderRadius:12}}>
-  <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1}}>
+        <Box sx={{ mt: 2, borderRadius: 12 }}>
+  <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1 }}>
     Select Your Industry
   </Typography>
   <FormControl fullWidth>
-    <InputLabel id="industry-select-label" sx={{ color: "var(--text-color)" }}>Industries</InputLabel>
+    <InputLabel 
+      id="industry-select-label" 
+      sx={{
+        color: 'white', // Ensure the default label color is white
+        '&.Mui-focused': { color: 'white',backgroundColor:'var(--background-color)', padding:'0px 10px' }, // Ensure label remains white when focused
+      }}
+    >
+      Industries
+    </InputLabel>
     <Select
       labelId="industry-select-label"
       multiple
+      onClick={handleDropDownScroll}
       value={formData.industries}
       onChange={(event) => {
         const selectedIndustries = event.target.value;
@@ -410,13 +424,12 @@ const BuyerForm = () => {
         }));
       }}
       renderValue={(selected) => (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap:0.5}}> {/* Reduced gap */}
           {selected.map((industry) => (
             <Chip 
               key={industry} 
               label={industry} 
               sx={{
-                margin: 0.5,
                 backgroundColor: 'var(--background-color)',
                 color: 'var(--text-color)',
                 border: '1px solid var(--border-color)',
@@ -431,6 +444,8 @@ const BuyerForm = () => {
             maxHeight: 200, // Limits the dropdown height (around 4 items visible)
             overflowY: 'auto', // Enables the scrollbar
             backgroundColor: 'var(--background-color)', // Apply background color to the dropdown
+            zIndex: 1300, // Ensures the dropdown appears above the field
+            color: 'var(--text-color)', // Text color for all items
           },
         },
       }}
@@ -464,6 +479,7 @@ const BuyerForm = () => {
   </FormControl>
 </Box>
 
+
         <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 2 }}>
         Solutions Required
           </Typography>
@@ -491,6 +507,7 @@ const BuyerForm = () => {
           fullWidth
           label="Select a service"
           variant="outlined"
+          onClick={handleDropDownScroll}
           value={service.service}
           onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
           select
@@ -501,7 +518,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -526,6 +543,7 @@ const BuyerForm = () => {
             <MenuItem
               key={serviceOption}
               value={serviceOption}
+              className="responsive-menu-item"
               style={{
                 backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
                 color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
@@ -533,7 +551,6 @@ const BuyerForm = () => {
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              width: '100%',
               }}
             >
               <Tooltip title={serviceOption} arrow>
@@ -558,6 +575,7 @@ const BuyerForm = () => {
           fullWidth
           label="Select a timeframe"
           variant="outlined"
+          onClick={handleDropDownScroll}
           value={service.timeframe}
           onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
           select
@@ -568,7 +586,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
             },
           }}
@@ -602,6 +620,7 @@ const BuyerForm = () => {
         <TextField
           fullWidth
           label="Select a budget"
+          onClick={handleDropDownScroll}
           variant="outlined"
           value={service.budget}
           onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
@@ -613,7 +632,7 @@ const BuyerForm = () => {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
             },
           }}
@@ -652,7 +671,7 @@ const BuyerForm = () => {
             onClick={handleAddService}
             sx={{
               color: "var(--text-color)",
-              borderRadius: '45%',
+              borderRadius: '50%',
             }}
           >
             <AddCircleOutlineIcon />
@@ -696,7 +715,7 @@ const BuyerForm = () => {
             mt: 4,
             backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
             color: 'white',
-            height: 45,
+            height: 50,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
           }}
