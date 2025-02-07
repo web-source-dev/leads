@@ -359,54 +359,59 @@ const BuyerForm = () => {
             },
           }}
         />
-        <TextField
-          fullWidth
-          label="Company Size"
-          name="companySize"
-          value={formData.companySize}
-          onChange={handleChange}
-          onClick={handleDropDownScroll}
-          select
-          margin="normal"
-          variant="outlined"
-          error={!!errors.companySize}
-          helperText={errors.companySize}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 50,
-              borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
-            },
-          }}
-          SelectProps={{
-            MenuProps: {
-              PaperProps: {
-                style: {
-                  backgroundColor: "var(--background-color)",
-                  color: "var(--text-color)",
-                },
-              },
-            },
-          }}
-      onFocus={handleDropdownFocus} // Prevent scroll on focus
-      onBlur={handleDropdownBlur}   // Restore scroll on blur
-        >
-          {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
-            <MenuItem
-              key={size}
-              value={size}
-              style={{
-                backgroundColor: formData.companySize === size ? "var(--border-color)" : "var(--background-color)",
-                color: formData.companySize === size ? "var(--button-text-color)" : "var(--text-color)",
-              }}
-            >
-              {size}
-            </MenuItem>
-          ))}
-        </TextField>
+       <TextField
+  fullWidth
+  label="Company Size"
+  name="companySize"
+  value={formData.companySize}
+  onChange={handleChange}
+  select
+  margin="normal"
+  variant="outlined"
+  error={!!errors.companySize}
+  helperText={errors.companySize}
+  InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+  InputProps={{
+    style: {
+      color: "var(--text-color)",
+      border: "1px solid var(--border-color)",
+      height: 50,
+      borderRadius: 12,
+      fontSize: '14px' // Reduce placeholder size
+    },
+  }}
+  SelectProps={{
+    MenuProps: {
+      PaperProps: {
+        style: {
+          backgroundColor: "var(--background-color)",
+          color: "var(--text-color)",
+        },
+      },
+    },
+  }}
+  id="companySizeField" // Add an ID to target the input field
+  onClick={() => {
+    const element = document.getElementById('companySizeField');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }}
+>
+  {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
+    <MenuItem
+      key={size}
+      value={size}
+      style={{
+        backgroundColor: formData.companySize === size ? "var(--border-color)" : "var(--background-color)",
+        color: formData.companySize === size ? "var(--button-text-color)" : "var(--text-color)",
+      }}
+    >
+      {size}
+    </MenuItem>
+  ))}
+</TextField>
+
         <Box sx={{ mt: 2, borderRadius: 12 }}>
   <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1 }}>
     Select Your Industry
