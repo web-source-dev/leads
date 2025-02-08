@@ -218,6 +218,7 @@ const BuyerForm = () => {
         borderRadius: 4,
         boxShadow: 3,
       }}
+      id="formContainer"
     >
       <Typography
         variant="h4"
@@ -391,10 +392,16 @@ const BuyerForm = () => {
     },
   }}
   id="companySizeField" // Add an ID to target the input field
-  onFocus={() => {
+   onFocus={() => {
     const element = document.getElementById('companySizeField');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const container = document.getElementById('formContainer'); // Use container's ID
+    if (element && container) {
+      const offsetTop = element.getBoundingClientRect().top + window.scrollY;
+      const containerTop = container.getBoundingClientRect().top + window.scrollY;
+      const scrollOffset = offsetTop - containerTop - 20; // Adjust for container padding or other elements
+      
+      // Scroll within the container
+      container.scrollTo({ top: scrollOffset, behavior: 'smooth' });
     }
   }}
 >
