@@ -199,9 +199,6 @@ const BuyerForm = () => {
         p: 0,
         backgroundColor: "var(--background-color)",
         color: "var(--text-color)",
-        border: "1px solid var(--border-color)",
-        borderRadius: 4,
-        boxShadow: 3,
       }}
     >
       <Box
@@ -220,7 +217,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Enter your company name"
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.companyName}
               helperText={errors.companyName}
@@ -246,7 +243,7 @@ const BuyerForm = () => {
               onBlur={handleBlur}
               placeholder="Enter your email address"
               type="email"
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.email}
               helperText={errors.email}
@@ -271,7 +268,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Enter your first name"
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.firstName}
               helperText={errors.firstName}
@@ -296,7 +293,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Enter your last name"
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.lastName}
               helperText={errors.lastName}
@@ -321,7 +318,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="https://example.com"
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.companyWebsite}
               helperText={errors.companyWebsite}
@@ -345,7 +342,7 @@ const BuyerForm = () => {
               value={formData.companySize}
               onChange={handleChange}
               select
-              margin="normal"
+              margin="dense"
               variant="outlined"
               error={!!errors.companySize}
               helperText={errors.companySize}
@@ -462,7 +459,7 @@ const BuyerForm = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 2 }}>
+            <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 1 }}>
               Solutions Required
             </Typography>
             {formData.services.map((service, index) => (
@@ -483,7 +480,7 @@ const BuyerForm = () => {
                     </IconButton>
                   )}
                 </Box>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                   <Grid item xs={12} sm={4}>
                     <TextField
                       fullWidth
@@ -673,7 +670,7 @@ const BuyerForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Provide additional details about your requirements"
-              margin="normal"
+              margin="dense"
               multiline
               rows={4}
               variant="outlined"
