@@ -185,6 +185,9 @@ const BuyerForm = () => {
     }, 2000);
   };
 
+  const handleScrollToid = () => {
+    window.scrollTo({ top: document.getElementById('companySize').offsetTop, behavior:'smooth' });
+  }
   return (
     <Container
       maxWidth="sm"
@@ -344,7 +347,8 @@ const BuyerForm = () => {
           name="companySize"
           value={formData.companySize}
           onChange={handleChange}
-          
+          onFocus={handleScrollToid}
+          id="companySize"
           select
           margin="normal"
           variant="outlined"
