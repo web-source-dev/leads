@@ -571,14 +571,13 @@ const BuyerForm = () => {
           variant="contained"
           sx={{
             mt: 4,
-            backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
+            backgroundColor: loading ? "#4998F8c3" : "var(--button-background-color)",
             color: 'white',
             height: 50,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
           }}
           type="submit"
-          disabled={loading}
         >
           {loading ? "Submitting..." : "Submit Request"}
         </Button>
