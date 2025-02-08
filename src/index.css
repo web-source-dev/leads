@@ -1,6 +1,6 @@
 /* Light Theme */
 :root {
-  --background-color: #121212;
+  --background-color: #141416;
   --text-color: #e0e0e0;
   --input-background-color: #807b7b;
   --input-text-color: #e0e0e0;
@@ -16,7 +16,7 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --background-color: #121212;
+  --background-color: #141416;
   --text-color: #e0e0e0;
   --input-background-color: #807b7b;
   --input-text-color: #e0e0e0;
@@ -27,6 +27,19 @@
   --scrollbar-track-color: #000000;
   /* Add more variables as needed */
 }
+
+/* Remove autofill background color and prevent border/color changes */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset !important;
+  -webkit-text-fill-color: var(--text-color) !important;
+  border: 1px solid var(--border-color1) !important;
+
+  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s !important;
+}
+
 /* hide scrollbar */
 ::-webkit-scrollbar {
   width: 0;
@@ -34,7 +47,7 @@
   display: none;
 }
 
-svg{
+svg {
   fill: var(--text-color);
 }
 
@@ -51,6 +64,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 /* Targeting the PaperProps of the dropdown */
 .MuiPaper-root::-webkit-scrollbar {
   width: 8px; /* Set the width of the scrollbar */
@@ -69,6 +83,7 @@ code {
   scrollbar-width: thin; /* Thin scrollbar */
   scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color); /* Thumb and track colors */
 }
+
 /* Default for PC - Width 170px */
 .responsive-menu-item {
   width: 170px;
@@ -80,3 +95,4 @@ code {
     width: 100%;
   }
 }
+
