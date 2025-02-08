@@ -184,10 +184,6 @@ const BuyerForm = () => {
       }
     }, 2000);
   };
-
-  const handleScrollToid = () => {
-    window.scrollTo({ top: document.getElementById('companySize').offsetTop, behavior:'smooth' });
-  }
   return (
     <Container
       maxWidth="sm"
@@ -235,6 +231,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyName}
           helperText={errors.companyName}
+          autoComplete="organization"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -242,7 +239,10 @@ const BuyerForm = () => {
               border: "1px solid var(--border-color)",
               height: 50,
               borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
+              fontSize: '14px', // Reduce placeholder size
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
         />
@@ -259,6 +259,7 @@ const BuyerForm = () => {
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
+            autoComplete="given-name"
             InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
@@ -266,7 +267,10 @@ const BuyerForm = () => {
                 border: "1px solid var(--border-color)",
                 height: 50,
                 borderRadius: 12,
-                fontSize: '14px' // Reduce placeholder size
+                fontSize: '14px', // Reduce placeholder size
+                WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+                WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+                transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
               },
             }}
           />
@@ -282,6 +286,7 @@ const BuyerForm = () => {
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
+            autoComplete="family-name"
             InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
             InputProps={{
               style: {
@@ -289,7 +294,10 @@ const BuyerForm = () => {
                 border: "1px solid var(--border-color)",
                 height: 50,
                 borderRadius: 12,
-                fontSize: '14px' // Reduce placeholder size
+                fontSize: '14px', // Reduce placeholder size
+                WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+                WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+                transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
               },
             }}
           />
@@ -307,6 +315,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.email}
           helperText={errors.email}
+          autoComplete="email"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -314,7 +323,10 @@ const BuyerForm = () => {
               border: "1px solid var(--border-color)",
               height: 50,
               borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
+              fontSize: '14px', // Reduce placeholder size
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
         />
@@ -330,6 +342,7 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.companyWebsite}
           helperText={errors.companyWebsite}
+          autoComplete="url"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -337,57 +350,40 @@ const BuyerForm = () => {
               border: "1px solid var(--border-color)",
               height: 50,
               borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
+              fontSize: '14px', // Reduce placeholder size
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
         />
-        <TextField
-          fullWidth
-          label="Company Size"
-          name="companySize"
-          value={formData.companySize}
-          onChange={handleChange}
-          onFocus={handleScrollToid}
-          id="companySize"
-          select
-          margin="normal"
-          variant="outlined"
-          error={!!errors.companySize}
-          helperText={errors.companySize}
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
+        <Box sx={{ mt: 2 }}>
+          <label htmlFor="companySize" style={{ color: "var(--text-color)", fontSize: '14px' }}>Company Size</label>
+          <select
+            id="companySize"
+            name="companySize"
+            value={formData.companySize}
+            onChange={handleChange}
+            style={{
+              width: '100%',
               height: 50,
               borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
-            },
-          }}
-          SelectProps={{
-            MenuProps: {
-              PaperProps: {
-                style: {
-                  backgroundColor: "var(--background-color)",
-                  color: "var(--text-color)",
-                },
-              },
-            },
-          }}
-        >
-          {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
-            <MenuItem
-              key={size}
-              value={size}
-              style={{
-                backgroundColor: formData.companySize === size ? "var(--border-color)" : "var(--background-color)",
-                color: formData.companySize === size ? "var(--button-text-color)" : "var(--text-color)",
-              }}
-            >
-              {size}
-            </MenuItem>
-          ))}
-        </TextField>
+              border: "1px solid var(--border-color)",
+              backgroundColor: "var(--background-color)",
+              color: "var(--text-color)",
+              fontSize: '14px',
+              padding: '0 12px',
+              marginTop: '8px'
+            }}
+          >
+            <option value="" disabled>Select company size</option>
+            {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
+              <option key={size} value={size} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </Box>
         <Box sx={{ mt: 2, borderRadius: 12 }}>
   <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1 }}>
     Select Your Industry
@@ -404,29 +400,27 @@ const BuyerForm = () => {
     </InputLabel>
     <Select
       labelId="industry-select-label"
-      multiple
-      
-      value={formData.industries}
+      value={formData.industries[0] || ''}
       onChange={(event) => {
-        const selectedIndustries = event.target.value;
+        const selectedIndustry = event.target.value;
         setFormData((prevState) => ({
           ...prevState,
-          industries: selectedIndustries
+          industries: [selectedIndustry]
         }));
       }}
       renderValue={(selected) => (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap:0.5}}> {/* Reduced gap */}
-          {selected.map((industry) => (
+          {selected && (
             <Chip 
-              key={industry} 
-              label={industry} 
+              key={selected} 
+              label={selected} 
               sx={{
                 backgroundColor: 'var(--background-color)',
                 color: 'var(--text-color)',
                 border: '1px solid var(--border-color)',
               }} 
             />
-          ))}
+          )}
         </Box>
       )}
       MenuProps={{
@@ -504,6 +498,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`service${index}`]}
           helperText={errors[`service${index}`]}
+          autoComplete="off"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -515,6 +510,9 @@ const BuyerForm = () => {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               fontSize: '14px',
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
           SelectProps={{
@@ -572,6 +570,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`timeframe${index}`]}
           helperText={errors[`timeframe${index}`]}
+          autoComplete="off"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -579,6 +578,9 @@ const BuyerForm = () => {
               border: "1px solid var(--border-color)",
               height: 50,
               borderRadius: 12,
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
           SelectProps={{
@@ -618,6 +620,7 @@ const BuyerForm = () => {
           select
           error={!!errors[`budget${index}`]}
           helperText={errors[`budget${index}`]}
+          autoComplete="off"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
@@ -625,6 +628,9 @@ const BuyerForm = () => {
               border: "1px solid var(--border-color)",
               height: 50,
               borderRadius: 12,
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
           SelectProps={{
@@ -689,13 +695,17 @@ const BuyerForm = () => {
           variant="outlined"
           error={!!errors.additionalInfo}
           helperText={errors.additionalInfo}
+          autoComplete="off"
           InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
           InputProps={{
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
               borderRadius: 12,
-              fontSize: '14px' // Reduce placeholder size
+              fontSize: '14px', // Reduce placeholder size
+              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset', // Prevent autofill background color change
+              WebkitTextFillColor: 'var(--text-color)', // Prevent autofill text color change
+              transition: 'background-color 5000s ease-in-out 0s' // Prevent autofill background color change
             },
           }}
         />
