@@ -8,7 +8,7 @@ import {
   IconButton,
   Box,
   Grid,
-  Chip, InputLabel, FormControl, Checkbox, ListItemText, Select
+  Chip,InputLabel, FormControl, Checkbox, ListItemText,Select
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -17,7 +17,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
-
 const industryOptions = [
   { name: "Retail & E-commerce", icon: <AddIcon /> },
   { name: "Marketing & Advertising", icon: <AddIcon /> },
@@ -67,8 +66,6 @@ const BuyerForm = () => {
   console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   const handleAddService = () => {
     setFormData({
@@ -109,11 +106,8 @@ const BuyerForm = () => {
     }
     setErrors({ ...errors, [name]: error });
   };
-
-  const handleIndustrySelect = (selectedIndustry) => {
-    // ...existing code...
-  };
-
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -193,524 +187,535 @@ const BuyerForm = () => {
 
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="sm"
       sx={{
         mt: 0,
-        p: 0,
+        p: 1,
         backgroundColor: "var(--background-color)",
         color: "var(--text-color)",
+        border: "1px solid var(--border-color)",
+        borderRadius: 4,
+        boxShadow: 3,
       }}
     >
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: "var(--text-color)", mb: 1, fontWeight: 'bold' }}
+      >
+        Service Request
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        gutterBottom
+        sx={{ color: "var(--text-color)", mb: 1 }}
+      >
+        Submit your service requirements
+      </Typography>
+
       <Box
         component="form"
         noValidate
         autoComplete="off"
+        sx={{ mt: 1 }}
         onSubmit={handleSubmit}
       >
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="Company Name"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your company name"
-              margin="dense"
-              variant="outlined"
-              error={!!errors.companyName}
-              helperText={errors.companyName}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
+        <TextField
+          fullWidth
+          label="Company Name"
+          name="companyName"
+          value={formData.companyName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Enter your company name"
+          margin="normal"
+          variant="outlined"
+          error={!!errors.companyName}
+          helperText={errors.companyName}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+              fontSize: '14px' // Reduce placeholder size
+            },
+          }}
+        />
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+          <TextField
+            fullWidth
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your first name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.firstName}
+            helperText={errors.firstName}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 50,
+                borderRadius: 12,
+                fontSize: '14px' // Reduce placeholder size
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter your last name"
+            margin="normal"
+            variant="outlined"
+            error={!!errors.lastName}
+            helperText={errors.lastName}
+            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+            InputProps={{
+              style: {
+                color: "var(--text-color)",
+                border: "1px solid var(--border-color)",
+                height: 50,
+                borderRadius: 12,
+                fontSize: '14px' // Reduce placeholder size
+              },
+            }}
+          />
+        </Box>
+        <TextField
+          fullWidth
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Enter your email address"
+          type="email"
+          margin="normal"
+          variant="outlined"
+          error={!!errors.email}
+          helperText={errors.email}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+              fontSize: '14px' // Reduce placeholder size
+            },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Company Website"
+          name="companyWebsite"
+          value={formData.companyWebsite}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="https://example.com"
+          margin="normal"
+          variant="outlined"
+          error={!!errors.companyWebsite}
+          helperText={errors.companyWebsite}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+              fontSize: '14px' // Reduce placeholder size
+            },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Company Size"
+          name="companySize"
+          value={formData.companySize}
+          onChange={handleChange}
+          
+          select
+          margin="normal"
+          variant="outlined"
+          error={!!errors.companySize}
+          helperText={errors.companySize}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+              fontSize: '14px' // Reduce placeholder size
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
                 style: {
+                  backgroundColor: "var(--background-color)",
                   color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
                 },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your email address"
-              type="email"
-              margin="dense"
-              variant="outlined"
-              error={!!errors.email}
-              helperText={errors.email}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="First Name"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your first name"
-              margin="dense"
-              variant="outlined"
-              error={!!errors.firstName}
-              helperText={errors.firstName}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextField
-              fullWidth
-              label="Last Name"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Enter your last name"
-              margin="dense"
-              variant="outlined"
-              error={!!errors.lastName}
-              helperText={errors.lastName}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              label="Company Website"
-              name="companyWebsite"
-              value={formData.companyWebsite}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="https://example.com"
-              margin="dense"
-              variant="outlined"
-              error={!!errors.companyWebsite}
-              helperText={errors.companyWebsite}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              label="Company Size"
-              name="companySize"
-              value={formData.companySize}
-              onChange={handleChange}
-              select
-              margin="dense"
-              variant="outlined"
-              error={!!errors.companySize}
-              helperText={errors.companySize}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
-                style: {
-                  color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  height: 50,
-                  borderRadius: 12,
-                  fontSize: '14px'
-                },
-              }}
-              SelectProps={{
-                MenuProps: {
-                  PaperProps: {
-                    style: {
-                      backgroundColor: "var(--background-color)",
-                      color: "var(--text-color)",
-                    },
-                  },
-                },
+              },
+            },
+          }}
+        >
+          {["1-50", "51-500", "501-5000","5,000+"].map((size) => (
+            <MenuItem
+              key={size}
+              value={size}
+              style={{
+                backgroundColor: formData.companySize === size ? "var(--border-color)" : "var(--background-color)",
+                color: formData.companySize === size ? "var(--button-text-color)" : "var(--text-color)",
               }}
             >
-              {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
-                <MenuItem
-                  key={size}
-                  value={size}
+              {size}
+            </MenuItem>
+          ))}
+        </TextField>
+        <Box sx={{ mt: 2, borderRadius: 12 }}>
+  <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 1 }}>
+    Select Your Industry
+  </Typography>
+  <FormControl fullWidth>
+    <InputLabel 
+      id="industry-select-label" 
+      sx={{
+        color: 'white', // Ensure the default label color is white
+        '&.Mui-focused': { color: 'white',backgroundColor:'var(--background-color)', padding:'0px 10px' }, // Ensure label remains white when focused
+      }}
+    >
+      Industries
+    </InputLabel>
+    <Select
+      labelId="industry-select-label"
+      multiple
+      
+      value={formData.industries}
+      onChange={(event) => {
+        const selectedIndustries = event.target.value;
+        setFormData((prevState) => ({
+          ...prevState,
+          industries: selectedIndustries
+        }));
+      }}
+      renderValue={(selected) => (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap:0.5}}> {/* Reduced gap */}
+          {selected.map((industry) => (
+            <Chip 
+              key={industry} 
+              label={industry} 
+              sx={{
+                backgroundColor: 'var(--background-color)',
+                color: 'var(--text-color)',
+                border: '1px solid var(--border-color)',
+              }} 
+            />
+          ))}
+        </Box>
+      )}
+      MenuProps={{
+        PaperProps: {
+          style: {
+            maxHeight: 200, // Limits the dropdown height (around 4 items visible)
+            overflowY: 'auto', // Enables the scrollbar
+            backgroundColor: 'var(--background-color)', // Apply background color to the dropdown
+            zIndex: 1300, // Ensures the dropdown appears above the field
+            color: 'var(--text-color)', // Text color for all items
+          },
+        },
+      }}
+      sx={{
+        color: 'var(--input-text-color)',
+        border: '1px solid var(--border-color)',
+      }}
+    >
+      {industryOptions.map((option) => (
+        <MenuItem
+          key={option.name}
+          value={option.name}
+          sx={{
+            backgroundColor: 'var(--background-color)', // Background color for all items
+            '&:hover': {
+              backgroundColor: 'var(--background-color)', // Disable hover effect
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'var(--background-color)', // Keep selected item background color
+              '&:hover': {
+                backgroundColor: 'var(--background-color)', // Ensure hover is disabled on selected
+              },
+            },
+          }}
+        >
+          <Checkbox checked={formData.industries.includes(option.name)} sx={{ color: 'var(--text-color)' }} />
+          <ListItemText primary={option.name} sx={{ color: 'var(--text-color)' }} />
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+</Box>
+
+
+        <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 2 }}>
+        Solutions Required
+          </Typography>
+        {formData.services.map((service, index) => (
+  <Box key={index} sx={{ mt: 1 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
+        Solution {index + 1}
+      </Typography>
+      {index > 0 && (
+        <IconButton
+          color="secondary"
+          onClick={() => handleRemoveService(index)}
+          sx={{
+            color: "var(--text-color)",
+          }}
+        >
+          <RemoveCircleOutlineIcon />
+        </IconButton>
+      )}
+    </Box>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a service"
+          variant="outlined"
+          
+          value={service.service}
+          onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
+          select
+          error={!!errors[`service${index}`]}
+          helperText={errors[`service${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              fontSize: '14px',
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: {
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                  maxHeight: 200,
+                  overflowY: 'auto',
+                },
+              },
+            },
+          }}
+        >
+          {servicesBuyer.map((serviceOption) => (
+            <MenuItem
+              key={serviceOption}
+              value={serviceOption}
+              className="responsive-menu-item"
+              style={{
+                backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
+                color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
+                fontSize: '14px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              }}
+            >
+              <Tooltip title={serviceOption} arrow>
+                <span
                   style={{
-                    backgroundColor: formData.companySize === size ? "var(--border-color)" : "var(--background-color)",
-                    color: formData.companySize === size ? "var(--button-text-color)" : "var(--text-color)",
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: 'block',
                   }}
                 >
-                  {size}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel
-                id="industry-select-label"
-                sx={{
-                  color: 'white',
-                  '&.Mui-focused': { color: 'white', backgroundColor: 'var(--background-color)', padding: '0px 10px' },
-                }}
-              >
-                Industries
-              </InputLabel>
-              <Select
-                labelId="industry-select-label"
-                multiple
-                value={formData.industries}
-                onChange={(event) => {
-                  const selectedIndustries = event.target.value;
-                  setFormData((prevState) => ({
-                    ...prevState,
-                    industries: selectedIndustries
-                  }));
-                }}
-                renderValue={(selected) => (
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {selected.map((industry) => (
-                      <Chip
-                        key={industry}
-                        label={industry}
-                        sx={{
-                          backgroundColor: 'var(--background-color)',
-                          color: 'var(--text-color)',
-                          border: '1px solid var(--border-color)',
-                        }}
-                      />
-                    ))}
-                  </Box>
-                )}
-                MenuProps={{
-                  PaperProps: {
-                    style: {
-                      maxHeight: 200,
-                      overflowY: 'auto',
-                      backgroundColor: 'var(--background-color)',
-                      zIndex: 1300,
-                      color: 'var(--text-color)',
-                    },
-                  },
-                }}
-                sx={{
-                  color: 'var(--input-text-color)',
-                  border: '1px solid var(--border-color)',
-                }}
-              >
-                {industryOptions.map((option) => (
-                  <MenuItem
-                    key={option.name}
-                    value={option.name}
-                    sx={{
-                      backgroundColor: 'var(--background-color)',
-                      '&:hover': {
-                        backgroundColor: 'var(--background-color)',
-                      },
-                      '&.Mui-selected': {
-                        backgroundColor: 'var(--background-color)',
-                        '&:hover': {
-                          backgroundColor: 'var(--background-color)',
-                        },
-                      },
-                    }}
-                  >
-                    <Checkbox checked={formData.industries.includes(option.name)} sx={{ color: 'var(--text-color)' }} />
-                    <ListItemText primary={option.name} sx={{ color: 'var(--text-color)' }} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 1 }}>
-              Solutions Required
-            </Typography>
-            {formData.services.map((service, index) => (
-              <Box key={index} sx={{ mt: 1 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="subtitle2" sx={{ color: "var(--text-color)", mb: 1 }}>
-                    Solution {index + 1}
-                  </Typography>
-                  {index > 0 && (
-                    <IconButton
-                      color="secondary"
-                      onClick={() => handleRemoveService(index)}
-                      sx={{
-                        color: "var(--text-color)",
-                      }}
-                    >
-                      <RemoveCircleOutlineIcon />
-                    </IconButton>
-                  )}
-                </Box>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="Select a service"
-                      variant="outlined"
-                      value={service.service}
-                      onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
-                      select
-                      error={!!errors[`service${index}`]}
-                      helperText={errors[`service${index}`]}
-                      InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-                      InputProps={{
-                        style: {
-                          color: "var(--text-color)",
-                          border: "1px solid var(--border-color)",
-                          height: 50,
-                          borderRadius: 12,
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          fontSize: '14px',
-                        },
-                      }}
-                      SelectProps={{
-                        MenuProps: {
-                          PaperProps: {
-                            style: {
-                              backgroundColor: "var(--background-color)",
-                              color: "var(--text-color)",
-                              maxHeight: 200,
-                              overflowY: 'auto',
-                            },
-                          },
-                        },
-                      }}
-                    >
-                      {servicesBuyer.map((serviceOption) => (
-                        <MenuItem
-                          key={serviceOption}
-                          value={serviceOption}
-                          className="responsive-menu-item"
-                          style={{
-                            backgroundColor: service.service === serviceOption ? "var(--border-color)" : "var(--background-color)",
-                            color: service.service === serviceOption ? "var(--button-text-color)" : "var(--text-color)",
-                            fontSize: '14px',
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          }}
-                        >
-                          <Tooltip title={serviceOption} arrow>
-                            <span
-                              style={{
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                display: 'block',
-                              }}
-                            >
-                              {serviceOption}
-                            </span>
-                          </Tooltip>
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
+                  {serviceOption}
+                </span>
+              </Tooltip>
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
 
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="Select a timeframe"
-                      variant="outlined"
-                      value={service.timeframe}
-                      onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
-                      select
-                      error={!!errors[`timeframe${index}`]}
-                      helperText={errors[`timeframe${index}`]}
-                      InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-                      InputProps={{
-                        style: {
-                          color: "var(--text-color)",
-                          border: "1px solid var(--border-color)",
-                          height: 50,
-                          borderRadius: 12,
-                        },
-                      }}
-                      SelectProps={{
-                        MenuProps: {
-                          PaperProps: {
-                            style: {
-                              backgroundColor: "var(--background-color)",
-                              color: "var(--text-color)",
-                            },
-                          },
-                        },
-                      }}
-                    >
-                      {["1-2 weeks", "1 month", "3 months"].map((timeframe) => (
-                        <MenuItem
-                          key={timeframe}
-                          value={timeframe}
-                          style={{
-                            backgroundColor: service.timeframe === timeframe ? "var(--border-color)" : "var(--background-color)",
-                            color: service.timeframe === timeframe ? "var(--button-text-color)" : "var(--text-color)",
-                          }}
-                        >
-                          {timeframe}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="Select a budget"
-                      variant="outlined"
-                      value={service.budget}
-                      onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
-                      select
-                      error={!!errors[`budget${index}`]}
-                      helperText={errors[`budget${index}`]}
-                      InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-                      InputProps={{
-                        style: {
-                          color: "var(--text-color)",
-                          border: "1px solid var(--border-color)",
-                          height: 50,
-                          borderRadius: 12,
-                        },
-                      }}
-                      SelectProps={{
-                        MenuProps: {
-                          PaperProps: {
-                            style: {
-                              backgroundColor: "var(--background-color)",
-                              color: "var(--text-color)",
-                            },
-                          },
-                        },
-                      }}
-                    >
-                      {["$5,000+", "$10,000+", "$25,000+","50,000+","100,000+"].map((budget) => (
-                        <MenuItem
-                          key={budget}
-                          value={budget}
-                          style={{
-                            backgroundColor: service.budget === budget ? "var(--border-color)" : "var(--background-color)",
-                            color: service.budget === budget ? "var(--button-text-color)" : "var(--text-color)",
-                          }}
-                        >
-                          {budget}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
-                </Grid>
-              </Box>
-            ))}
-          </Grid>
-          <Grid item xs={12}>
-            <Box onClick={handleAddService} sx={{ display: 'flex', justifyContent: 'center', cursor: 'pointer', mt: 2, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
-              <IconButton
-                color="primary"
-                onClick={handleAddService}
-                sx={{
-                  color: "var(--text-color)",
-                  borderRadius: '50%',
-                }}
-              >
-                <AddCircleOutlineIcon />
-              </IconButton>
-              <Typography
-                variant="body1"
-                sx={{ color: "var(--text-color)", ml: 1, alignSelf: 'center' }}
-              >
-                Add Another Service
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Additional Information"
-              name="additionalInfo"
-              value={formData.additionalInfo}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Provide additional details about your requirements"
-              margin="dense"
-              multiline
-              rows={4}
-              variant="outlined"
-              error={!!errors.additionalInfo}
-              helperText={errors.additionalInfo}
-              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-              InputProps={{
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a timeframe"
+          variant="outlined"
+          
+          value={service.timeframe}
+          onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
+          select
+          error={!!errors[`timeframe${index}`]}
+          helperText={errors[`timeframe${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
                 style: {
+                  backgroundColor: "var(--background-color)",
                   color: "var(--text-color)",
-                  border: "1px solid var(--border-color)",
-                  borderRadius: 12,
-                  fontSize: '14px'
                 },
+              },
+            },
+          }}
+        >
+          {["1-2 weeks", "1 month", "3 months"].map((timeframe) => (
+            <MenuItem
+              key={timeframe}
+              value={timeframe}
+              style={{
+                backgroundColor: service.timeframe === timeframe ? "var(--border-color)" : "var(--background-color)",
+                color: service.timeframe === timeframe ? "var(--button-text-color)" : "var(--text-color)",
               }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 2,
-                backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
-                color: 'white',
-                height: 50,
-                borderRadius: 2,
-                border: "1px solid var(--border-color)",
-              }}
-              type="submit"
-              disabled={loading}
             >
-              {loading ? "Submitting..." : "Submit Request"}
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
-            {success && <Box sx={{ mt: 2, color: 'green' }}>{success}</Box>}
-          </Grid>
-        </Grid>
+              {timeframe}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+
+      <Grid item xs={12} sm={4}>
+        <TextField
+          fullWidth
+          label="Select a budget"
+          
+          variant="outlined"
+          value={service.budget}
+          onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
+          select
+          error={!!errors[`budget${index}`]}
+          helperText={errors[`budget${index}`]}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              height: 50,
+              borderRadius: 12,
+            },
+          }}
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: {
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                },
+              },
+            },
+          }}
+        >
+          {["$5,000+", "$10,000+", "$25,000+","50,000+","100,000+"].map((budget) => (
+            <MenuItem
+              key={budget}
+              value={budget}
+              style={{
+                backgroundColor: service.budget === budget ? "var(--border-color)" : "var(--background-color)",
+                color: service.budget === budget ? "var(--button-text-color)" : "var(--text-color)",
+              }}
+            >
+              {budget}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+    </Grid>
+  </Box>
+))}
+
+        <Box onClick={handleAddService} sx={{ display: 'flex', justifyContent: 'center',cursor:'pointer', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
+          <IconButton
+            color="primary"
+            onClick={handleAddService}
+            sx={{
+              color: "var(--text-color)",
+              borderRadius: '50%',
+            }}
+          >
+            <AddCircleOutlineIcon />
+          </IconButton>
+          <Typography
+            variant="body1"
+            sx={{ color: "var(--text-color)", ml: 1, alignSelf: 'center' }}
+          >
+            Add Another Service
+          </Typography>
+        </Box>
+
+        <TextField
+          fullWidth
+          label="Additional Information"
+          name="additionalInfo"
+          value={formData.additionalInfo}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Provide additional details about your requirements"
+          margin="normal"
+          multiline
+          rows={4}
+          variant="outlined"
+          error={!!errors.additionalInfo}
+          helperText={errors.additionalInfo}
+          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+          InputProps={{
+            style: {
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+              borderRadius: 12,
+              fontSize: '14px' // Reduce placeholder size
+            },
+          }}
+        />
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{
+            mt: 4,
+            backgroundColor: loading ? "#0000ffa3" : "var(--button-background-color)",
+            color: 'white',
+            height: 50,
+            borderRadius: 2,
+            border: "1px solid var(--border-color)",
+          }}
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Submit Request"}
+        </Button>
+
+        {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
+        {success && <Box sx={{ mt: 2, color: 'green' }}>{success}</Box>}
       </Box>
+
     </Container>
   );
 };
