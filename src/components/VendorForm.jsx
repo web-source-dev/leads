@@ -135,7 +135,7 @@ export default function VendorRegistration() {
       
         // Check if the response status is success (HTTP status code 200-299)
         if (response.status >= 200 && response.status < 300) {
-          setSuccess("Request submitted. Please check your email for further instructions");
+          setSuccess("Request submitted. Please check your email for further instructions.");
           setTimeout(() => {
             setSuccess("");
           window.top.location.href = "https://www.reachly.ca/";
@@ -239,7 +239,7 @@ export default function VendorRegistration() {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -263,7 +263,7 @@ export default function VendorRegistration() {
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
-                height: 45,
+                height: 50,
                 borderRadius: 12,
                 fontSize: '14px' // Reduce placeholder size
               },
@@ -286,7 +286,7 @@ export default function VendorRegistration() {
               style: {
                 color: "var(--text-color)",
                 border: "1px solid var(--border-color)",
-                height: 45,
+                height: 50,
                 borderRadius: 12,
                 fontSize: '14px' // Reduce placeholder size
               },
@@ -311,7 +311,7 @@ export default function VendorRegistration() {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -335,7 +335,7 @@ export default function VendorRegistration() {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
@@ -358,49 +358,40 @@ export default function VendorRegistration() {
             style: {
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              height: 45,
+              height: 50,
               borderRadius: 12,
               fontSize: '14px' // Reduce placeholder size
             },
           }}
         />
         <FormControl fullWidth margin="normal" variant="outlined" error={!!errors.minimumBudget}>
-          <InputLabel style={{ color: "var(--text-color)", fontSize: '14px' }}>
-            Minimum Budget Accepted per Year
-          </InputLabel>
-          <Select
+          <select
             name="minimumBudget"
             value={formData.minimumBudget}
             onChange={handleChange}
             onBlur={handleBlur}
-            displayEmpty
             style={{
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              backgroundColor: "var(--background-color)",
-              height: 45,
+              backgroundColor: "#121212",
+              height: 50,
               borderRadius: 12,
-              fontSize: '14px'
-            }}
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  backgroundColor: "var(--background-color)", // Background color for dropdown menu
-                },
-              },
+              fontSize: '14px',
+              width: '100%',
+              padding: '0 12px'
             }}
           >
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="" disabled></MenuItem>
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="10000">$5,000+</MenuItem>
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="10000">$10,000+</MenuItem>
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="25000">$25,000+</MenuItem>
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="50000">$50,000+</MenuItem>
-            <MenuItem style={{ backgroundColor: "var(--background-color)", color: "white" }} value="100000">$100,000+</MenuItem>
-          </Select>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="" disabled>Select Minimum Budget</option>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="10000">$5,000+</option>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="10000">$10,000+</option>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="25000">$25,000+</option>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="50000">$50,000+</option>
+            <option style={{ backgroundColor: "#121212", color: "white" }} value="100000">$100,000+</option>
+          </select>
         </FormControl>
 
         {/* Industries Multi-Select */}
-        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Your Industry</InputLabel>
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Select Your Industries</InputLabel>
         <FormControl fullWidth margin="normal">
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {industries.map((industry) => (
@@ -416,7 +407,8 @@ export default function VendorRegistration() {
                   borderRadius: 20,
                   cursor: 'pointer',
                   padding: '0 8px',
-                  height: 30,
+                  fontSize: '12px',
+                  height: 25,
                 }}
               />
             ))}
@@ -424,7 +416,7 @@ export default function VendorRegistration() {
         </FormControl>
 
         {/* Services Multi-Select */}
-        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services Provide</InputLabel>
+        <InputLabel style={{ color: "var(--text-color)", fontSize: '14px', fontWeight: 'bold', mt: 2 }}>Services You Provide</InputLabel>
         <FormControl fullWidth margin="normal">
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {services.map((service) => (
@@ -440,7 +432,8 @@ export default function VendorRegistration() {
                   borderRadius: 20,
                   cursor: 'pointer',
                   padding: '0 8px',
-                  height: 30,
+                  fontSize: '12px',
+                  height: 25,
                 }}
               />
             ))}
@@ -504,12 +497,11 @@ export default function VendorRegistration() {
           fullWidth
           variant="contained"
           type="submit"
-          disabled={loading}
           sx={{
             mt: 4,
-            backgroundColor: loading ? "gray" : "var(--button-background-color)",
+            backgroundColor: loading ? "4998F8c3" : "var(--button-background-color)",
             color: loading ? "white" : "var(--button-text-color)",
-            height: 45,
+            height: 50,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
           }}
