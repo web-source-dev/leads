@@ -205,7 +205,18 @@ const BuyerForm = () => {
       }
     }, 2000);
   };
-
+const handleFieldFocus = (fieldId) => {
+  const element = document.getElementById(fieldId);
+  const container = document.getElementById('formContainer'); // Make sure to have this container's ID
+  if (element && container) {
+    // Scroll the field into view and center it
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center', // Center the element in the container
+      inline: 'nearest' // Ensure it aligns horizontally as well, if needed
+    });
+  }
+};
   return (
     <Container
       maxWidth="sm"
@@ -391,19 +402,8 @@ const BuyerForm = () => {
       },
     },
   }}
-  id="companySizeField" // Add an ID to target the input field
-   onFocus={() => {
-    const element = document.getElementById('companySizeField');
-    const container = document.getElementById('formContainer'); // Use container's ID
-    if (element && container) {
-      const offsetTop = element.getBoundingClientRect().top + window.scrollY;
-      const containerTop = container.getBoundingClientRect().top + window.scrollY;
-      const scrollOffset = offsetTop - containerTop - 20; // Adjust for container padding or other elements
-      
-      // Scroll within the container
-      container.scrollTo({ top: scrollOffset, behavior: 'smooth' });
-    }
-  }}
+ id="companySizeField" // Add a unique ID to each field
+  onFocus={() => handleFieldFocus('companySizeField')} // Call the helper function on focus
 >
   {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
     <MenuItem
@@ -436,10 +436,9 @@ const BuyerForm = () => {
     <Select
       labelId="industry-select-label"
       multiple
-      onClick={handleDropDownScroll}
+        id="industryselectId" // Unique ID for this field
+  onFocus={() => handleFieldFocus('industryselectId')} // Call the helper function on focus
 
-      onFocus={handleDropDownScroll} // Prevent scrolling on focus
-      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
       value={formData.industries}
       onChange={(event) => {
         const selectedIndustries = event.target.value;
@@ -532,10 +531,9 @@ const BuyerForm = () => {
           fullWidth
           label="Select a service"
           variant="outlined"
-          onClick={handleDropDownScroll}
+                  id="SelectServiceId" // Unique ID for this field
+  onFocus={() => handleFieldFocus('SelectServiceId')} // Call the helper function on focus
 
-      onFocus={handleDropDownScroll} // Prevent scrolling on focus
-      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
           value={service.service}
           onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
           select
@@ -603,10 +601,8 @@ const BuyerForm = () => {
           fullWidth
           label="Select a timeframe"
           variant="outlined"
-          onClick={handleDropDownScroll}
-
-      onFocus={handleDropDownScroll} // Prevent scrolling on focus
-      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
+          id="timeframeId" // Unique ID for this field
+          onFocus={() => handleFieldFocus('timeframeId')} // Call the helper function on focus
           value={service.timeframe}
           onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
           select
@@ -651,10 +647,8 @@ const BuyerForm = () => {
         <TextField
           fullWidth
           label="Select a budget"
-          onClick={handleDropDownScroll}
-
-      onFocus={handleDropDownScroll} // Prevent scrolling on focus
-      onBlur={handleDropDownScroll}  // Prevent scrolling on blur
+          id="budgetId" // Unique ID for this field
+          onFocus={() => handleFieldFocus('budgetId')} // Call the helper function on focus
           variant="outlined"
           value={service.budget}
           onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
