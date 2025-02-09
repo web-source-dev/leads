@@ -534,7 +534,7 @@ const BuyerForm = () => {
             variant="body1"
             sx={{ color: "var(--text-color)", ml: 1, alignSelf: 'center' }}
           >
-            Add Another Service
+            Add Solution
           </Typography>
         </Box>
 
