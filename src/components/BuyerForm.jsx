@@ -241,7 +241,7 @@ const BuyerForm = () => {
             },
           }}
         />
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
           <TextField
             fullWidth
             label="First Name"
@@ -250,7 +250,7 @@ const BuyerForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Enter your first name"
-            margin="normal"
+            margin="dense"
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
@@ -277,7 +277,7 @@ const BuyerForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Enter your last name"
-            margin="normal"
+            margin="dense"
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
@@ -352,7 +352,7 @@ const BuyerForm = () => {
             },
           }}
         />
-        <Box sx={{ mt: 2 }}>
+        <Box>
           <select
             id="companySize"
             name="companySize"
@@ -367,7 +367,7 @@ const BuyerForm = () => {
               color: "var(--text-color)",
               fontSize: '14px',
               padding: '0 12px',
-              marginTop: '8px'
+              marginTop: '10px'
             }}
           >
             <option value="" disabled>Company size</option>
@@ -572,7 +572,7 @@ const BuyerForm = () => {
           sx={{
             mt: 4,
             backgroundColor: loading ? "#4998F8c3" : "var(--button-background-color)",
-            color: 'white',
+            color: 'white', // Ensure text color remains white
             height: 50,
             borderRadius: 2,
             border: "1px solid var(--border-color)",
