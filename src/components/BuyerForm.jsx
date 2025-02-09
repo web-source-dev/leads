@@ -161,14 +161,14 @@ const BuyerForm = () => {
             services: [{ service: '', timeframe: '', budget: '' }]
           });
         } else {
-          setError("There was an issue with your form submission.");
+          setError(response.message);
           setTimeout(() => {
             setError('');
           }, 3000);
         }
       } catch (error) {
         console.error("Error submitting form:", error);
-        setError("Error submitting form. Please try again.");
+        setError("Email already exists or invalid attempt.");
         setTimeout(() => {
           setError('');
         }, 3000);      
@@ -534,7 +534,7 @@ const BuyerForm = () => {
             variant="body1"
             sx={{ color: "var(--text-color)", ml: 1, alignSelf: 'center' }}
           >
-            Add Solution
+            Add Another Service
           </Typography>
         </Box>
 
