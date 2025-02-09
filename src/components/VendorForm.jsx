@@ -20,29 +20,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 
-const industries = [
-  "Information Technology (IT)",
-  "Financial Services",
-  "Healthcare",
-  "Education (EdTech)",
-  "Retail & E-commerce",
-  "Real Estate",
-  "Marketing & Advertising",
-  "Human Resources (HRTech)",
-  "Manufacturing & Supply Chain",
-  "Professional Services"
-];
+const industries = ["Information Technology (IT)", "Financial Services", "Healthcare", "Education (EdTech)", "Retail & E-commerce","Marketing & Advertising","Human Resources (HRTech)","Manufacturing & Supply Chain","Real Estate","Professional Services"];
 const services = [
-  "E-commerce Platforms",
-  "Marketing Automation",
-  "Sales Automation",
-  "Document Management & Collaboration Tools",
   "CRM & Sales Automation",
+  "Marketing Automation",
   "Cybersecurity & Data Protection",
+  "Project Management Software",
   "Business Intelligence & Analytics",
   "Financial & Accounting Tools",
-  "Project Management Software",
   "HR & Recruitment Solutions",
+  "E-commerce Platforms",
+  "Document Management & Collaboration Tools",
+  "Sales Automation",
   "Customer Support & Helpdesk Tools",
   "Compliance & Risk Management Software"
 ];
@@ -171,7 +160,7 @@ export default function VendorRegistration() {
           });
         } else {
           // Handle if response status is not 2xx (something went wrong)
-          setError("There was an issue with your submission.");
+          setError(response.message);
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -203,6 +192,7 @@ export default function VendorRegistration() {
     <Container
       maxWidth="sm"
       sx={{
+        mt: 1,
         p: 2,
         backgroundColor: "var(--background-color)",
         color: "var(--text-color)",
@@ -256,7 +246,7 @@ export default function VendorRegistration() {
             },
           }}
         />
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
           <TextField
             fullWidth
             label="First Name"
@@ -265,7 +255,7 @@ export default function VendorRegistration() {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Enter your first name"
-            margin="dense"
+            margin="normal"
             variant="outlined"
             error={!!errors.firstName}
             helperText={errors.firstName}
@@ -288,7 +278,7 @@ export default function VendorRegistration() {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Enter your last name"
-            margin="dense"
+            margin="normal"
             variant="outlined"
             error={!!errors.lastName}
             helperText={errors.lastName}
