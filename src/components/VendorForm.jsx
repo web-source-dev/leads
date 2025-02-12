@@ -379,7 +379,7 @@ export default function VendorRegistration() {
             style={{
               color: "var(--text-color)",
               border: "1px solid var(--border-color)",
-              backgroundColor: "#121212",
+              backgroundColor: "var(--background-color)",
               height: 50,
               borderRadius: 12,
               fontSize: '14px',
@@ -387,12 +387,12 @@ export default function VendorRegistration() {
               padding: '0 12px'
             }}
           >
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="" disabled>Select Minimum Budget</option>
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="10000">$5,000+</option>
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="10000">$10,000+</option>
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="25000">$25,000+</option>
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="50000">$50,000+</option>
-            <option style={{ backgroundColor: "#121212", color: "white" }} value="100000">$100,000+</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="" disabled>Minimum Budget</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="10000">$5,000+</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="10000">$10,000+</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="25000">$25,000+</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="50000">$50,000+</option>
+            <option style={{ backgroundColor: "var(--background-color)", color: "white" }} value="100000">$100,000+</option>
           </select>
         </FormControl>
 
