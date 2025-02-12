@@ -41,18 +41,23 @@ const industryOptions = [
 ];
 
 const servicesBuyer = [
-  "CRM & Sales Automation",
-  "Marketing Automation",
-  "Cybersecurity & Data Protection",
-  "Project Management Software",
-  "Business Intelligence & Analytics",
-  "Financial & Accounting Tools",
-  "HR & Recruitment Solutions",
-  "E-commerce Platforms",
-  "Document Management & Collaboration Tools",
-  "Sales Automation",
-  "Customer Support & Helpdesk Tools",
-  "Compliance & Risk Management Software"
+  "Artificial Intelligence & Machine Learning Solutions",
+  "Data Analytics & Business Intelligence",
+  "Cybersecurity & IT Risk Management",
+  "Open-Source & Physical Threat Intelligence",
+  "Cloud Computing & Infrastructure Services",
+  "Digital Marketing & Advertising",
+  "Customer Relationship Management (CRM) Solutions",
+  "Sales Technology & Automation",
+  "Financial & Accounting Services",
+  "Legal & Compliance Advisory",
+  "Logistics, Freight & Transportation Services",
+  "Procurement & Supplier Management",
+  "E-commerce & Retail Technology",
+  "HR Tech & Workforce Solutions",
+  "Enterprise Software & Automation",
+  "Sustainability & ESG Consulting",
+  "Market Research & Competitive Intelligence"
 ];
 
 const BuyerForm = () => {
@@ -197,14 +202,14 @@ const BuyerForm = () => {
         gutterBottom
         sx={{ color: "var(--text-color)", mb: 1, fontWeight: 'bold' }}
       >
-        Service Request
+        Solutions Form
       </Typography>
       <Typography
         variant="subtitle1"
         gutterBottom
         sx={{ color: "var(--text-color)", mb: 1 }}
       >
-        Submit your service requirements
+        Submit your solutions requirements.
       </Typography>
 
       <Box
