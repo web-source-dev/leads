@@ -22,18 +22,23 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const industries = ["Information Technology (IT)", "Financial Services", "Healthcare", "Education (EdTech)", "Retail & E-commerce","Marketing & Advertising","Human Resources (HRTech)","Manufacturing & Supply Chain","Real Estate","Professional Services"];
 const services = [
-  "CRM & Sales Automation",
-  "Marketing Automation",
-  "Cybersecurity & Data Protection",
-  "Project Management Software",
-  "Business Intelligence & Analytics",
-  "Financial & Accounting Tools",
-  "HR & Recruitment Solutions",
-  "E-commerce Platforms",
-  "Document Management & Collaboration Tools",
-  "Sales Automation",
-  "Customer Support & Helpdesk Tools",
-  "Compliance & Risk Management Software"
+  "Artificial Intelligence & Machine Learning Solutions",
+  "Data Analytics & Business Intelligence",
+  "Cybersecurity & IT Risk Management",
+  "Open-Source & Physical Threat Intelligence",
+  "Cloud Computing & Infrastructure Services",
+  "Digital Marketing & Advertising",
+  "Customer Relationship Management (CRM) Solutions",
+  "Sales Technology & Automation",
+  "Financial & Accounting Services",
+  "Legal & Compliance Advisory",
+  "Logistics, Freight & Transportation Services",
+  "Procurement & Supplier Management",
+  "E-commerce & Retail Technology",
+  "HR Tech & Workforce Solutions",
+  "Enterprise Software & Automation",
+  "Sustainability & ESG Consulting",
+  "Market Research & Competitive Intelligence"
 ];
 
 export default function VendorRegistration() {
