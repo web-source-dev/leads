@@ -1,4 +1,4 @@
-import React { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -65,7 +65,7 @@ export default function VendorRegistration() {
   useEffect(() => {
     if (email) {
       // Fetch vendor data by email
-      axios.get(${process.env.REACT_APP_BACKEND_URL}/lead/vendor/${email})
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/lead/vendor/${email}`)
         .then(response => {
           setFormData(response.data);
         })
@@ -155,11 +155,11 @@ export default function VendorRegistration() {
         let response;
         if (email) {
           // Update existing vendor
-          response = await axios.put(${process.env.REACT_APP_BACKEND_URL}/lead/updateVendor/${email}, formData);
+          response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/lead/updateVendor/${email}`, formData);
           setSuccess("Vendor data updated successfully. Please check your email for further instructions.");
         } else {
           // Create new vendor
-          response = await axios.post(${process.env.REACT_APP_BACKEND_URL}/lead/vendor, formData);
+          response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/vendor`, formData);
           setSuccess("Request submitted. Please check your email for further instructions.");
         }
       
