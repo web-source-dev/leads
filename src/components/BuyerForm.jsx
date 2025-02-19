@@ -78,10 +78,11 @@ const BuyerForm = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 useEffect(() => {
-     const queryParams = new URLSearchParams(window.location.search);
-     const emailParam = queryParams.get('email');
-     console.log("Current URL:", window.location.href); // Print full URL
-     console.log("email from wix:", emailParam); // Print email parameter
+const params = new URLSearchParams(window.top.location.search);
+const email = params.get("email");
+console.log(email);
+
+
 
  }, []);
 
