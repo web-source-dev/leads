@@ -70,6 +70,8 @@ const BuyerForm = () => {
         // Listen for a response from Wix
         const handleMessage = (event) => {
             if (event.data.type === "responseData") {
+              console.log('data received from wix',event.data.email)
+              console.log('data received from wix',event.data)
                 setEmail(event.data.email);
             }
         };
