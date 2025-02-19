@@ -9,7 +9,9 @@ const App = () => {
       <div style={{ padding: "1rem", backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
         <Routes>
           <Route path="/vendor" element={<VendorRegistration />} />
+          <Route path="/vendor/:email" element={<VendorRegistration />} />
           <Route path="/buyer" element={<BuyerForm />} />
+          <Route path="/buyer/:email" element={<BuyerForm />} />
         </Routes>
       </div>
     </Router>
