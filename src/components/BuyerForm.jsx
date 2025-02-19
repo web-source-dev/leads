@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -86,7 +86,7 @@ const BuyerForm = () => {
         if (emailParam) {
             console.log("email from wix",emailParam); // Set the email state with the value from the URL
         }
-    }, [location.search]); // Re-run when the location changes (if applicable)
+    }, []); // Re-run when the location changes (if applicable)
 
   const handleAddService = () => {
     setFormData({
