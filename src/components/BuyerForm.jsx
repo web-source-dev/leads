@@ -62,7 +62,7 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
-  const [email,setEmail] = useState("");
+  const [email, setEmail] = useState("");
    useEffect(() => {
         // Send a message to the Wix parent
         window.parent.postMessage({ type: "requestData", data: "Send me data" }, "*");
@@ -70,7 +70,7 @@ const BuyerForm = () => {
         // Listen for a response from Wix
         const handleMessage = (event) => {
             if (event.data.type === "responseData") {
-                setEmail('message wix form ...',event.data.email);
+                setEmail(event.data.email);
             }
         };
 
@@ -78,8 +78,8 @@ const BuyerForm = () => {
 
         return () => {
             window.removeEventListener("message", handleMessage);
-        };
-    }, []);
+        };
+    }, []);
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -99,7 +99,7 @@ const BuyerForm = () => {
   useEffect(() => {
     if (email) {
       // Fetch buyer data by email
-      axios.get(${process.env.REACT_APP_BACKEND_URL}/lead/buyer/${email})
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer/${email}`)
         .then(response => {
           setFormData(response.data);
         })
@@ -182,11 +182,11 @@ const BuyerForm = () => {
         let response;
         if (email) {
           // Update existing buyer
-          response = await axios.put(${process.env.REACT_APP_BACKEND_URL}/lead/updateBuyer/${email}, formData);
+          response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/lead/updateBuyer/${email}`, formData);
           setSuccess('Buyer data updated successfully. Please check your email for further instructions.');
         } else {
           // Create new buyer
-          response = await axios.post(${process.env.REACT_APP_BACKEND_URL}/lead/buyer, formData);
+          response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
           setSuccess('Request submitted. Please check your email for further instructions.');
         }
         if (response.status >= 200 && response.status < 300) {
@@ -465,6 +465,7 @@ const BuyerForm = () => {
           Solutions Required
         </Typography>
         {formData.services.map((service, index) => (
+          
           <Box key={index}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="subtitle2" sx={{ color: "var(--text-color)" }}>
@@ -485,8 +486,8 @@ const BuyerForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                <select
-                  id={service-${index}}
-                  name={service-${index}}
+                  id={`service-${index}`}
+                  name={`service-${index}`}
                   value={service.service}
                   onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
                   style={{
@@ -511,8 +512,8 @@ const BuyerForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <select
-                  id={timeframe-${index}}
-                  name={timeframe-${index}}
+                  id={`timeframe-${index}`}
+                  name={`timeframe-${index}`}
                   value={service.timeframe}
                   onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
                   style={{
@@ -537,8 +538,8 @@ const BuyerForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <select
-                  id={budget-${index}}
-                  name={budget-${index}}
+                  id={`budget-${index}`}
+                  name={`budget-${index}`}
                   value={service.budget}
                   onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
                   style={{
@@ -554,7 +555,7 @@ const BuyerForm = () => {
                   }}
                 >
                   <option value="" disabled>Budget</option>
-                  {["$5,000+", "$10,000+", "$25,000+","50,000+","100,000+"].map((budget) => (
+                  {["$5,000+", "$10,000+", "$25,000+", "$50,000+", "$100,000+"].map((budget) => (
                     <option key={budget} value={budget} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
                       {budget}
                     </option>
