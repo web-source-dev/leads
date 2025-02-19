@@ -83,9 +83,8 @@ const BuyerForm = () => {
         const queryParams = new URLSearchParams(window.location.search);
         const emailParam = queryParams.get('email');
         
-        if (emailParam) {
             console.log("email from wix",emailParam); // Set the email state with the value from the URL
-        }
+        
     }, []); // Re-run when the location changes (if applicable)
 
   const handleAddService = () => {
