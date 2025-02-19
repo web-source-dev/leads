@@ -79,6 +79,7 @@ const BuyerForm = () => {
   const [loading, setLoading] = useState(false);
 useEffect(() => {
 const params = new URLSearchParams(window.top.location.search);
+console.log(params)
 const email = params.get("email");
 console.log(email);
 
