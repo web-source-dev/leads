@@ -86,7 +86,7 @@ const BuyerForm = () => {
         // Listen for a response from Wix
         const handleMessage = (event) => {
             if (event.data.type === "responseData") {
-                setResponseMessage(event.data.message);
+                console.log('message wix form ...',event.data.message);
             }
         };
 
