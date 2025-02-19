@@ -77,16 +77,25 @@ const BuyerForm = () => {
   console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-useEffect(() => {
-const params = new URLSearchParams(window.top.location.search);
-console.log(params)
-const email = params.get("email");
-console.log(email);
+ const [responseMessage, setResponseMessage] = useState("");
 
+    useEffect(() => {
+        // Send a message to the Wix parent
+        window.parent.postMessage({ type: "requestData", data: "Send me data" }, "*");
 
+        // Listen for a response from Wix
+        const handleMessage = (event) => {
+            if (event.data.type === "responseData") {
+                setResponseMessage(event.data.message);
+            }
+        };
 
- }, []);
+        window.addEventListener("message", handleMessage);
 
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
+    }, []);
   const handleAddService = () => {
     setFormData({
       ...formData,
