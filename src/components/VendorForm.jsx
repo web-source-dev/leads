@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -19,6 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import { useParams } from "react-router-dom";
 
 const industries = ["Information Technology (IT)", "Financial Services", "Healthcare", "Education (EdTech)", "Retail & E-commerce","Marketing & Advertising","Human Resources (HRTech)","Manufacturing & Supply Chain","Real Estate","Professional Services"];
 const services = [
@@ -42,6 +43,8 @@ const services = [
 ];
 
 export default function VendorRegistration() {
+  const { email } = useParams(); // Get email from URL parameters
+
   const [formData, setFormData] = React.useState({
     companyName: "",
     firstName: "",
@@ -58,6 +61,19 @@ export default function VendorRegistration() {
   console.log(formData);
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
+
+  useEffect(() => {
+    if (email) {
+      // Fetch vendor data by email
+      axios.get(${process.env.REACT_APP_BACKEND_URL}/lead/vendor/${email})
+        .then(response => {
+          setFormData(response.data);
+        })
+        .catch(error => {
+          console.error("Error fetching vendor data:", error);
+        });
+    }
+  }, [email]);
 
   const handleIndustryChange = (event) => {
     setFormData({ ...formData, selectedIndustries: event.target.value });
@@ -88,7 +104,7 @@ export default function VendorRegistration() {
         error = "Please enter a valid phone number.";
       }
     } else if (name === "companyWebsite" && value) {
-      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])\/?$/;
       if (!urlPattern.test(value)) {
         error = "Please enter a valid website URL.";
       }
@@ -104,7 +120,7 @@ export default function VendorRegistration() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])\/?$/;
     const phonePattern = /^[0-9]+$/;
 
     if (!formData.companyName || !formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.minimumBudget || formData.selectedIndustries.length === 0 || formData.selectedServices.length === 0) {
@@ -136,12 +152,19 @@ export default function VendorRegistration() {
     setLoading(true);
     setTimeout(async () => {
       try {
-        // Make the POST request to the backend with form data
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/vendor`, formData);
+        let response;
+        if (email) {
+          // Update existing vendor
+          response = await axios.put(${process.env.REACT_APP_BACKEND_URL}/lead/updateVendor/${email}, formData);
+          setSuccess("Vendor data updated successfully. Please check your email for further instructions.");
+        } else {
+          // Create new vendor
+          response = await axios.post(${process.env.REACT_APP_BACKEND_URL}/lead/vendor, formData);
+          setSuccess("Request submitted. Please check your email for further instructions.");
+        }
       
         // Check if the response status is success (HTTP status code 200-299)
         if (response.status >= 200 && response.status < 300) {
-          setSuccess("Request submitted. Please check your email for further instructions.");
           setTimeout(() => {
             setSuccess("");
           window.top.location.href = "https://www.reachly.ca/";
@@ -173,7 +196,7 @@ export default function VendorRegistration() {
       } catch (error) {
         // Handle errors (network issues, server errors, etc.)
         console.error("Error submitting form:", error);
-        setError('Email already exists or invalid attempt');
+        setError(email ? 'Error updating vendor data' : 'Email already exists or invalid attempt');
         setTimeout(() => {
           setError("");
         }, 3000);      
