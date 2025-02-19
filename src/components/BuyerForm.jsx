@@ -77,15 +77,13 @@ const BuyerForm = () => {
   console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+useEffect(() => {
+     const queryParams = new URLSearchParams(window.location.search);
+     const emailParam = queryParams.get('email');
+     console.log("Current URL:", window.location.href); // Print full URL
+     console.log("email from wix:", emailParam); // Print email parameter
 
-    useEffect(() => {
-        // Extract the query parameter 'email' from the URL
-        const queryParams = new URLSearchParams(window.location.search);
-        const emailParam = queryParams.get('email');
-        
-            console.log("email from wix",emailParam); // Set the email state with the value from the URL
-        
-    }, []); // Re-run when the location changes (if applicable)
+ }, []);
 
   const handleAddService = () => {
     setFormData({
