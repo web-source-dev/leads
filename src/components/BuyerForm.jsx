@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -20,7 +20,7 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useParams } from "react-router-dom";
 
 const industryOptions = [
   { name: "Retail & E-commerce", icon: <AddIcon /> },
@@ -62,6 +62,24 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
+  const [email,setEmail] = useState("");
+   useEffect(() => {
+        // Send a message to the Wix parent
+        window.parent.postMessage({ type: "requestData", data: "Send me data" }, "*");
+
+        // Listen for a response from Wix
+        const handleMessage = (event) => {
+            if (event.data.type === "responseData") {
+                setEmail('message wix form ...',event.data.email);
+            }
+        };
+
+        window.addEventListener("message", handleMessage);
+
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
+    }, []);
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -77,25 +95,20 @@ const BuyerForm = () => {
   console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
- const [responseMessage, setResponseMessage] = useState("");
 
-    useEffect(() => {
-        // Send a message to the Wix parent
-        window.parent.postMessage({ type: "requestData", data: "Send me data" }, "*");
+  useEffect(() => {
+    if (email) {
+      // Fetch buyer data by email
+      axios.get(${process.env.REACT_APP_BACKEND_URL}/lead/buyer/${email})
+        .then(response => {
+          setFormData(response.data);
+        })
+        .catch(error => {
+          console.error("Error fetching buyer data:", error);
+        });
+    }
+  }, [email]);
 
-        // Listen for a response from Wix
-        const handleMessage = (event) => {
-            if (event.data.type === "responseData") {
-                console.log('message wix form ...',event.data);
-            }
-        };
-
-        window.addEventListener("message", handleMessage);
-
-        return () => {
-            window.removeEventListener("message", handleMessage);
-        };
-    }, []);
   const handleAddService = () => {
     setFormData({
       ...formData,
@@ -128,7 +141,7 @@ const BuyerForm = () => {
         error = "Please enter a valid email address.";
       }
     } else if (name === "companyWebsite" && value) {
-      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])\/?$/;
       if (!urlPattern.test(value)) {
         error = "Please enter a valid website URL.";
       }
@@ -140,7 +153,7 @@ const BuyerForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])\/?$/;
 
     if (!formData.companyName || !formData.firstName || !formData.lastName || !formData.email || !formData.companySize || formData.industries.length === 0 || formData.services.some(service => !service.service || !service.timeframe || !service.budget)) {
       setError("Please fill in all fields");
@@ -166,9 +179,17 @@ const BuyerForm = () => {
     setLoading(true);
     setTimeout(async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
+        let response;
+        if (email) {
+          // Update existing buyer
+          response = await axios.put(${process.env.REACT_APP_BACKEND_URL}/lead/updateBuyer/${email}, formData);
+          setSuccess('Buyer data updated successfully. Please check your email for further instructions.');
+        } else {
+          // Create new buyer
+          response = await axios.post(${process.env.REACT_APP_BACKEND_URL}/lead/buyer, formData);
+          setSuccess('Request submitted. Please check your email for further instructions.');
+        }
         if (response.status >= 200 && response.status < 300) {
-          setSuccess('Request submitted. Please check your email for further instructions');
           setTimeout(() => {
             setSuccess('');
             window.top.location.href = "https://www.reachly.ca/";
@@ -193,7 +214,7 @@ const BuyerForm = () => {
         }
       } catch (error) {
         console.error("Error submitting form:", error);
-        setError("Email already exists or invalid attempt.");
+        setError(email ? 'Error updating buyer data' : 'Email already exists or invalid attempt.');
         setTimeout(() => {
           setError('');
         }, 3000);      
@@ -464,8 +485,8 @@ const BuyerForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                <select
-                  id={`service-${index}`}
-                  name={`service-${index}`}
+                  id={service-${index}}
+                  name={service-${index}}
                   value={service.service}
                   onChange={(e) => handleServiceChange(index, 'service', e.target.value)}
                   style={{
@@ -490,8 +511,8 @@ const BuyerForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <select
-                  id={`timeframe-${index}`}
-                  name={`timeframe-${index}`}
+                  id={timeframe-${index}}
+                  name={timeframe-${index}}
                   value={service.timeframe}
                   onChange={(e) => handleServiceChange(index, 'timeframe', e.target.value)}
                   style={{
@@ -516,8 +537,8 @@ const BuyerForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <select
-                  id={`budget-${index}`}
-                  name={`budget-${index}`}
+                  id={budget-${index}}
+                  name={budget-${index}}
                   value={service.budget}
                   onChange={(e) => handleServiceChange(index, 'budget', e.target.value)}
                   style={{
