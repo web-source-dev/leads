@@ -20,6 +20,8 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import { useLocation } from 'react-router-dom';
+
 
 const industryOptions = [
   { name: "Retail & E-commerce", icon: <AddIcon /> },
@@ -61,6 +63,8 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
+   const location = useLocation();
+
   const [formData, setFormData] = useState({
     companyName: '',
     firstName: '',
@@ -75,6 +79,16 @@ const BuyerForm = () => {
   console.log(formData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // Extract the query parameter 'email' from the URL
+        const queryParams = new URLSearchParams(location.search);
+        const emailParam = queryParams.get('email');
+        
+        if (emailParam) {
+            console.log("email from wix",emailParam); // Set the email state with the value from the URL
+        }
+    }, [location.search]); // Re-run when the location changes (if applicable)
 
   const handleAddService = () => {
     setFormData({
