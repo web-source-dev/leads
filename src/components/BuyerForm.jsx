@@ -20,7 +20,6 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { useLocation } from 'react-router-dom';
 
 
 const industryOptions = [
@@ -63,7 +62,6 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
-   const location = useLocation();
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -82,7 +80,7 @@ const BuyerForm = () => {
 
     useEffect(() => {
         // Extract the query parameter 'email' from the URL
-        const queryParams = new URLSearchParams(location.search);
+        const queryParams = new URLSearchParams(window.location.search);
         const emailParam = queryParams.get('email');
         
         if (emailParam) {
