@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import VendorRegistration from './components/VendorForm';
 import BuyerForm from './components/BuyerForm';
+import VendorDisplayChangeStatus from './components/VendorDisplayChangeStatus';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
           <Route path="/vendor/:email" element={<VendorRegistration />} />
           <Route path="/buyer" element={<BuyerForm />} />
           <Route path="/buyer/:email" element={<BuyerForm />} />
+          <Route path="/status/:email" element={<VendorDisplayChangeStatus />} />
         </Routes>
       </div>
     </Router>
