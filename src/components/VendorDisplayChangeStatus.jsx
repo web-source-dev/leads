@@ -58,7 +58,7 @@ const VendorDisplayChangeStatus = () => {
   };
 
   return (
-    <Container>
+    <div>
       <Typography variant="h4" gutterBottom sx={{ color: '#fff' }}>Matched Buyers</Typography>
       {loading && <Typography color="primary">Loading buyers...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
@@ -120,7 +120,7 @@ const VendorDisplayChangeStatus = () => {
           </Table>
         </TableContainer>
       )}
-    </Container>
+    </div>
   );
 };
 
