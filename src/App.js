@@ -7,7 +7,7 @@ import VendorDisplayChangeStatus from './components/VendorDisplayChangeStatus';
 const App = () => {
   return (
     <Router>
-      <div style={{ padding: "1rem", backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
+      <div style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
         <Routes>
           <Route path="/vendor" element={<VendorRegistration />} />
           <Route path="/vendor/:email" element={<VendorRegistration />} />
