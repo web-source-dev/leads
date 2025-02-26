@@ -66,7 +66,7 @@ const VendorDisplayChangeStatus = () => {
 
       {isSmallScreen ? (
         matchedBuyers.map(({ buyer, matchReasons, status }) => (
-          <Card key={buyer.email} sx={{position: 'relative' , backgroundColor: '#222', color: '#fff', marginBottom: 2 }}>
+          <Card key={buyer.email} sx={{position: 'relative' , backgroundColor: '#000', color: '#fff', marginBottom: 2 }}>
             <CardContent>
               <Typography sx={{marginBottom: 2}} variant="h6">{buyer.companyName}</Typography>
               <Typography sx={{marginBottom: 2}} variant="body2">Industry: {buyer.industries.join(', ')}</Typography>
@@ -86,7 +86,7 @@ const VendorDisplayChangeStatus = () => {
           </Card>
         ))
       ) : (
-        <TableContainer component={Paper} sx={{ backgroundColor: '#222', color: '#fff' }}>
+        <TableContainer component={Paper} sx={{ backgroundColor: '#000', color: '#fff' }}>
           <Table>
             <TableHead>
               <TableRow>
