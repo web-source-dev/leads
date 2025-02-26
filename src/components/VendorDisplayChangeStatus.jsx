@@ -60,10 +60,7 @@ const VendorDisplayChangeStatus = () => {
   return (
     <div>
       <Typography variant="h4" gutterBottom sx={{ color: '#fff' }}>Matched Buyers</Typography>
-      {loading && <Typography color="primary">Loading buyers...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
-      {!loading && matchedBuyers.length === 0 && <Typography color="textSecondary">No matched buyers found.</Typography>}
-
+      
       {isSmallScreen ? (
         matchedBuyers.map(({ buyer, matchReasons, status }) => (
           <Card key={buyer.email} sx={{position: 'relative' , backgroundColor: '#000', color: '#fff', marginBottom: 2 }}>
@@ -120,6 +117,10 @@ const VendorDisplayChangeStatus = () => {
           </Table>
         </TableContainer>
       )}
+      {loading && <Typography color="primary">Loading buyers...</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
+      {!loading && matchedBuyers.length === 0 && <Typography color="textSecondary">No matched buyers found.</Typography>}
+
     </div>
   );
 };
