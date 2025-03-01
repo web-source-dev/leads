@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, IconButton, useMediaQuery, Card, CardContent } from '@mui/material';
+import { Container, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, IconButton, useMediaQuery, Card, CardContent, CircularProgress, Box } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 const VendorDisplayChangeStatus = () => {
   const [matchedBuyers, setMatchedBuyers] = useState([]);
-  const [vendorEmail, setVendorEmail] = useState("");
+  const [vendorEmail, setVendorEmail] = useState("new@test.com");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -58,12 +58,21 @@ const VendorDisplayChangeStatus = () => {
   };
 
   return (
-    <div>
-      <Typography variant="h4" gutterBottom sx={{ color: '#fff' }}>Matched Buyers</Typography>
+    <>
+        <Typography variant="h4" gutterBottom sx={{ color: '#fff' }}>Matched Buyers</Typography>
+    <Container maxWidth="100%">
       
-      {isSmallScreen ? (
+      {loading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Typography color="error" sx={{ textAlign: 'center', mt: 2 }}>{error}</Typography>
+      ) : matchedBuyers.length === 0 ? (
+        <Typography sx={{ color: '#fff', textAlign: 'center', mt: 2 }}>No matched buyers found.</Typography>
+      ) : isSmallScreen ? (
         matchedBuyers.map(({ buyer, matchReasons, status }) => (
-          <Card key={buyer.email} sx={{position: 'relative' , backgroundColor: '#000', color: '#fff', marginBottom: 2 }}>
+          <Card key={buyer.email} sx={{position: 'relative' , backgroundColor: '#141416', color: '#fff', marginBottom: 2 }}>
             <CardContent>
               <Typography sx={{marginBottom: 2}} variant="h6">{buyer.companyName}</Typography>
               <Typography sx={{marginBottom: 2}} variant="body2">Industry: {buyer.industries.join(', ')}</Typography>
@@ -83,7 +92,7 @@ const VendorDisplayChangeStatus = () => {
           </Card>
         ))
       ) : (
-        <TableContainer component={Paper} sx={{ backgroundColor: '#000', color: '#fff' }}>
+        <TableContainer component={Paper} sx={{ backgroundColor: '#141416', color: '#fff' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -117,11 +126,8 @@ const VendorDisplayChangeStatus = () => {
           </Table>
         </TableContainer>
       )}
-      {loading && <Typography color="primary">Loading buyers...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
-      {!loading && matchedBuyers.length === 0 && <Typography color="textSecondary">No matched buyers found.</Typography>}
-
-    </div>
+    </Container>
+    </>
   );
 };
 
