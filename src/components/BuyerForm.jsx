@@ -478,7 +478,6 @@ const BuyerForm = () => {
               <Typography variant="subtitle2" sx={{ color: "var(--text-color)" }}>
                 Solution {index + 1}
               </Typography>
-              {index > 0 && (
                 <IconButton
                   color="secondary"
                   onClick={() => handleRemoveService(index)}
@@ -488,7 +487,6 @@ const BuyerForm = () => {
                 >
                   <RemoveCircleOutlineIcon />
                 </IconButton>
-              )}
             </Box>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
