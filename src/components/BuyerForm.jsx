@@ -187,7 +187,7 @@ const BuyerForm = () => {
         if (email) {
           // Update existing buyer
           response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/lead/updateBuyer/${email}`, formData);
-          setSuccess('Buyer data updated successfully.');
+          setSuccess('Solutions updated successfully.');
         } else {
           // Create new buyer
           response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
@@ -196,7 +196,7 @@ const BuyerForm = () => {
         if (response.status >= 200 && response.status < 300) {
           setTimeout(() => {
             setSuccess('');
-            window.top.location.href = "https://www.reachly.ca/";
+            window.top.location.href = "https://www.reachly.ca/buyer-dashboard";
           }, 3000);
           console.log("Form submitted successfully:", response.data);
           setFormData({
