@@ -62,7 +62,7 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
-  const [email, setEmail] = useState("nouman@gmail.com");
+  const [email, setEmail] = useState("");
   const [isEdit, setIsEdit] = useState(false); // New state to track edit mode
    useEffect(() => {
         // Send a message to the Wix parent
