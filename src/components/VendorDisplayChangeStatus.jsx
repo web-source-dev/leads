@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const VendorDisplayChangeStatus = () => {
   const [matchedBuyers, setMatchedBuyers] = useState([]);
-  const [vendorEmail, setVendorEmail] = useState("new@test.com");
+  const [vendorEmail, setVendorEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const isSmallScreen = useMediaQuery('(max-width:600px)');
