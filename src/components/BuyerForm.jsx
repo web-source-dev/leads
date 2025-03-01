@@ -62,7 +62,8 @@ const servicesBuyer = [
 ];
 
 const BuyerForm = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("nouman@gmail.com");
+  const [isEdit, setIsEdit] = useState(false); // New state to track edit mode
    useEffect(() => {
         // Send a message to the Wix parent
         window.parent.postMessage({ type: "requestData", data: "Send me data" }, "*");
@@ -70,8 +71,6 @@ const BuyerForm = () => {
         // Listen for a response from Wix
         const handleMessage = (event) => {
             if (event.data.type === "responseData") {
-              console.log('data received from wix',event.data.email)
-              console.log('data received from wix',event.data)
                 setEmail(event.data.email);
             }
         };
@@ -100,11 +99,14 @@ const BuyerForm = () => {
 
   useEffect(() => {
     if (email) {
+      setIsEdit(true); // Set edit mode if email is present
       // Fetch buyer data by email
-      axios.get(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer/${email}`)
+      const result = axios.get(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer/${email}`)
         .then(response => {
           setFormData(response.data);
+          console.log(result)
         })
+
         .catch(error => {
           console.error("Error fetching buyer data:", error);
         });
@@ -185,7 +187,7 @@ const BuyerForm = () => {
         if (email) {
           // Update existing buyer
           response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/lead/updateBuyer/${email}`, formData);
-          setSuccess('Buyer data updated successfully. Please check your email for further instructions.');
+          setSuccess('Buyer data updated successfully.');
         } else {
           // Create new buyer
           response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/lead/buyer`, formData);
@@ -245,14 +247,14 @@ const BuyerForm = () => {
         gutterBottom
         sx={{ color: "var(--text-color)", mb: 1, fontWeight: 'bold' }}
       >
-        Solutions Form
+        {isEdit ? 'Update Solutions' : 'Solutions Form'}
       </Typography>
       <Typography
         variant="subtitle1"
         gutterBottom
         sx={{ color: "var(--text-color)", mb: 1 }}
       >
-        Submit your solutions requirements.
+        {isEdit ? "Update your solutions requirements." : "Submit your solutions requirements."}
       </Typography>
 
       <Box
@@ -262,212 +264,215 @@ const BuyerForm = () => {
         sx={{ mt: 1 }}
         onSubmit={handleSubmit}
       >
-        <TextField
-          fullWidth
-          label="Company Name"
-          name="companyName"
-          value={formData.companyName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter your company name"
-          margin="normal"
-          variant="outlined"
-          error={!!errors.companyName}
-          helperText={errors.companyName}
-          autoComplete="organization"
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 50,
-              borderRadius: 12,
-              fontSize: '14px',
-              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
-              WebkitTextFillColor: 'var(--text-color)',
-              transition: 'background-color 5000s ease-in-out 0s'
-            },
-          }}
-        />
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
-          <TextField
-            fullWidth
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Enter your first name"
-            margin="dense"
-            variant="outlined"
-            error={!!errors.firstName}
-            helperText={errors.firstName}
-            autoComplete="given-name"
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-            InputProps={{
-              style: {
-                color: "var(--text-color)",
-                border: "1px solid var(--border-color)",
-                height: 50,
-                borderRadius: 12,
-                fontSize: '14px',
-                WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
-                WebkitTextFillColor: 'var(--text-color)',
-                transition: 'background-color 5000s ease-in-out 0s'
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Enter your last name"
-            margin="dense"
-            variant="outlined"
-            error={!!errors.lastName}
-            helperText={errors.lastName}
-            autoComplete="family-name"
-            InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-            InputProps={{
-              style: {
-                color: "var(--text-color)",
-                border: "1px solid var(--border-color)",
-                height: 50,
-                borderRadius: 12,
-                fontSize: '14px',
-                WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
-                WebkitTextFillColor: 'var(--text-color)',
-                transition: 'background-color 5000s ease-in-out 0s'
-              },
-            }}
-          />
-        </Box>
-        <TextField
-          fullWidth
-          label="Email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter your email address"
-          type="email"
-          margin="normal"
-          variant="outlined"
-          error={!!errors.email}
-          helperText={errors.email}
-          autoComplete="email"
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 50,
-              borderRadius: 12,
-              fontSize: '14px',
-              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
-              WebkitTextFillColor: 'var(--text-color)',
-              transition: 'background-color 5000s ease-in-out 0s'
-            },
-          }}
-        />
-        <TextField
-          fullWidth
-          label="Company Website"
-          name="companyWebsite"
-          value={formData.companyWebsite}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="https://example.com"
-          margin="normal"
-          variant="outlined"
-          error={!!errors.companyWebsite}
-          helperText={errors.companyWebsite}
-          autoComplete="url"
-          InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
-          InputProps={{
-            style: {
-              color: "var(--text-color)",
-              border: "1px solid var(--border-color)",
-              height: 50,
-              borderRadius: 12,
-              fontSize: '14px',
-              WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
-              WebkitTextFillColor: 'var(--text-color)',
-              transition: 'background-color 5000s ease-in-out 0s'
-            },
-          }}
-        />
-        <Box>
-          <select
-            id="companySize"
-            name="companySize"
-            value={formData.companySize}
-            onChange={handleChange}
-            style={{
-              width: '100%',
-              height: 50,
-              borderRadius: 12,
-              border: "1px solid var(--border-color)",
-              backgroundColor: "var(--background-color)",
-              color: "var(--text-color)",
-              fontSize: '14px',
-              padding: '0 12px',
-              marginTop: '10px'
-            }}
-          >
-            <option value="" disabled>Company size</option>
-            {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
-              <option key={size} value={size} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
-                {size}
-              </option>
-            ))}
-          </select>
-        </Box>
-        <Box sx={{ mt: 2, borderRadius: 12 }}>
-          <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 0 }}>
-            Select Your Industry
-          </Typography>
-          <FormControl fullWidth>
-            <select
-              id="industry-select"
-              name="industries"
-              value={formData.industries[0] || ''}
-              onChange={(event) => {
-                const selectedIndustry = event.target.value;
-                setFormData((prevState) => ({
-                  ...prevState,
-                  industries: [selectedIndustry]
-                }));
+        {!isEdit && (
+          <>
+            <TextField
+              fullWidth
+              label="Company Name"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter your company name"
+              margin="normal"
+              variant="outlined"
+              error={!!errors.companyName}
+              helperText={errors.companyName}
+              autoComplete="organization"
+              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+              InputProps={{
+                style: {
+                  color: "var(--text-color)",
+                  border: "1px solid var(--border-color)",
+                  height: 50,
+                  borderRadius: 12,
+                  fontSize: '14px',
+                  WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
+                  WebkitTextFillColor: 'var(--text-color)',
+                  transition: 'background-color 5000s ease-in-out 0s'
+                },
               }}
-              style={{
-                width: '100%',
-                height: 50,
-                borderRadius: 12,
-                border: "1px solid var(--border-color)",
-                backgroundColor: "var(--background-color)",
-                color: "var(--text-color)",
-                fontSize: '14px',
-                padding: '0 12px',
-                marginTop: '8px'
+            />
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
+              <TextField
+                fullWidth
+                label="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Enter your first name"
+                margin="dense"
+                variant="outlined"
+                error={!!errors.firstName}
+                helperText={errors.firstName}
+                autoComplete="given-name"
+                InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+                InputProps={{
+                  style: {
+                    color: "var(--text-color)",
+                    border: "1px solid var(--border-color)",
+                    height: 50,
+                    borderRadius: 12,
+                    fontSize: '14px',
+                    WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
+                    WebkitTextFillColor: 'var(--text-color)',
+                    transition: 'background-color 5000s ease-in-out 0s'
+                  },
+                }}
+              />
+              <TextField
+                fullWidth
+                label="Last Name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Enter your last name"
+                margin="dense"
+                variant="outlined"
+                error={!!errors.lastName}
+                helperText={errors.lastName}
+                autoComplete="family-name"
+                InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+                InputProps={{
+                  style: {
+                    color: "var(--text-color)",
+                    border: "1px solid var(--border-color)",
+                    height: 50,
+                    borderRadius: 12,
+                    fontSize: '14px',
+                    WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
+                    WebkitTextFillColor: 'var(--text-color)',
+                    transition: 'background-color 5000s ease-in-out 0s'
+                  },
+                }}
+              />
+            </Box>
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Enter your email address"
+              type="email"
+              margin="normal"
+              variant="outlined"
+              error={!!errors.email}
+              helperText={errors.email}
+              autoComplete="email"
+              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+              InputProps={{
+                style: {
+                  color: "var(--text-color)",
+                  border: "1px solid var(--border-color)",
+                  height: 50,
+                  borderRadius: 12,
+                  fontSize: '14px',
+                  WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
+                  WebkitTextFillColor: 'var(--text-color)',
+                  transition: 'background-color 5000s ease-in-out 0s'
+                },
               }}
-            >
-              <option value="" disabled>Select industry</option>
-              {industryOptions.map((option) => (
-                <option key={option.name} value={option.name} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-          </FormControl>
-        </Box>
+            />
+            <TextField
+              fullWidth
+              label="Company Website"
+              name="companyWebsite"
+              value={formData.companyWebsite}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="https://example.com"
+              margin="normal"
+              variant="outlined"
+              error={!!errors.companyWebsite}
+              helperText={errors.companyWebsite}
+              autoComplete="url"
+              InputLabelProps={{ style: { color: "var(--text-color)", fontSize: '14px' } }}
+              InputProps={{
+                style: {
+                  color: "var(--text-color)",
+                  border: "1px solid var(--border-color)",
+                  height: 50,
+                  borderRadius: 12,
+                  fontSize: '14px',
+                  WebkitBoxShadow: '0 0 0 1000px var(--background-color) inset',
+                  WebkitTextFillColor: 'var(--text-color)',
+                  transition: 'background-color 5000s ease-in-out 0s'
+                },
+              }}
+            />
+            <Box>
+              <select
+                id="companySize"
+                name="companySize"
+                value={formData.companySize}
+                onChange={handleChange}
+                style={{
+                  width: '100%',
+                  height: 50,
+                  borderRadius: 12,
+                  border: "1px solid var(--border-color)",
+                  backgroundColor: "var(--background-color)",
+                  color: "var(--text-color)",
+                  fontSize: '14px',
+                  padding: '0 12px',
+                  marginTop: '10px'
+                }}
+              >
+                <option value="" disabled>Company size</option>
+                {["1-50", "51-500", "501-5000", "5,000+"].map((size) => (
+                  <option key={size} value={size} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </Box>
+            <Box sx={{ mt: 2, borderRadius: 12 }}>
+              <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mb: 0 }}>
+                Select Your Industry
+              </Typography>
+              <FormControl fullWidth>
+                <select
+                  id="industry-select"
+                  name="industries"
+                  value={formData.industries[0] || ''}
+                  onChange={(event) => {
+                    const selectedIndustry = event.target.value;
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      industries: [selectedIndustry]
+                    }));
+                  }}
+                  style={{
+                    width: '100%',
+                    height: 50,
+                    borderRadius: 12,
+                    border: "1px solid var(--border-color)",
+                    backgroundColor: "var(--background-color)",
+                    color: "var(--text-color)",
+                    fontSize: '14px',
+                    padding: '0 12px',
+                    marginTop: '8px'
+                  }}
+                >
+                  <option value="" disabled>Select industry</option>
+                  {industryOptions.map((option) => (
+                    <option key={option.name} value={option.name} style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </FormControl>
+            </Box>
+          </>
+        )}
         <Typography variant="subtitle1" sx={{ color: "var(--text-color)", mt: 2 }}>
           Solutions Required
         </Typography>
         {formData.services.map((service, index) => (
-          
           <Box key={index}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="subtitle2" sx={{ color: "var(--text-color)" }}>
@@ -487,7 +492,7 @@ const BuyerForm = () => {
             </Box>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
-               <select
+                <select
                   id={`service-${index}`}
                   name={`service-${index}`}
                   value={service.service}
@@ -567,8 +572,7 @@ const BuyerForm = () => {
             </Grid>
           </Box>
         ))}
-
-        <Box onClick={handleAddService} sx={{ display: 'flex', justifyContent: 'center',cursor:'pointer', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
+        <Box onClick={handleAddService} sx={{ display: 'flex', justifyContent: 'center', cursor: 'pointer', mt: 3, borderRadius: 2, border: "1px solid var(--border-color1)" }}>
           <IconButton
             color="primary"
             onClick={handleAddService}
@@ -586,7 +590,8 @@ const BuyerForm = () => {
             Add Another Service
           </Typography>
         </Box>
-
+        
+        {!isEdit && (
         <TextField
           fullWidth
           label="Additional Information"
@@ -615,6 +620,7 @@ const BuyerForm = () => {
             },
           }}
         />
+        )}
         <Button
           fullWidth
           variant="contained"
@@ -628,7 +634,13 @@ const BuyerForm = () => {
           }}
           type="submit"
         >
-          {loading ? "Submitting..." : "Submit Request"}
+          {loading 
+  ? "Submitting..." 
+  : isEdit 
+    ? "Update Solutions" 
+    : "Submit Request"}
+
+          
         </Button>
 
         {error && <Box sx={{ mt: 2, color: 'red' }}>{error}</Box>}
