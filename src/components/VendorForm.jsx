@@ -23,23 +23,26 @@ import { useParams } from "react-router-dom";
 
 const industries = ["Information Technology (IT)", "Financial Services", "Healthcare", "Education (EdTech)", "Retail & E-commerce","Marketing & Advertising","Human Resources (HRTech)","Manufacturing & Supply Chain","Real Estate","Professional Services"];
 const services = [
-  "Data Analytics & Business Intelligence",
-  "Legal & Compliance Advisory",
-  "Artificial Intelligence & Machine Learning Solutions",
-  "Cybersecurity & IT Risk Management",
-  "Digital Marketing & Advertising",
-  "Open-Source & Physical Threat Intelligence",
-  "Sales Technology & Automation",
-  "Financial & Accounting Services",
-  "Cloud Computing & Infrastructure Services",
-  "Customer Relationship Management (CRM) Solutions",
-  "Logistics, Freight & Transportation Services",
-  "E-commerce & Retail Technology",
-  "Procurement & Supplier Management",
-  "HR Tech & Workforce Solutions",
-  "Enterprise Software & Automation",
-  "Sustainability & ESG Consulting",
-  "Market Research & Competitive Intelligence"
+"Customer Relationship Management Solutions",
+"Marketing Automation Platforms",
+"Sales Enablement Tools",
+"Financial Planning and Analysis Services",
+"Accounting and Bookkeeping Services",
+"Payroll Processing Services",
+"Recruitment and Talent Acquisition Services",
+"Project Management Tools",
+"Supply Chain Management Solutions",
+"Logistics and Transportation Services",
+"E-commerce Platforms",
+"Business Intelligence and Analytics Tools",
+"Enterprise Resource Planning (ERP) Systems",
+"Open-Source Intelligence (OSINT) Services",
+"Physical Security and Surveillance Systems",
+"Access Control Solutions",
+"Cybersecurity Services",
+'Cloud Computing Services",
+"Payment Processing Solutions",
+"Manufacturing Automation Solutions"
 ];
 
 export default function VendorRegistration() {
