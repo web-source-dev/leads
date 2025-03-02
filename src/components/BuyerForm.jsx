@@ -42,23 +42,26 @@ const industryOptions = [
 ];
 
 const servicesBuyer = [
-  "Artificial Intelligence & Machine Learning Solutions",
-  "Data Analytics & Business Intelligence",
-  "Cybersecurity & IT Risk Management",
-  "Open-Source & Physical Threat Intelligence",
-  "Cloud Computing & Infrastructure Services",
-  "Digital Marketing & Advertising",
-  "Customer Relationship Management (CRM) Solutions",
-  "Sales Technology & Automation",
-  "Financial & Accounting Services",
-  "Legal & Compliance Advisory",
-  "Logistics, Freight & Transportation Services",
-  "Procurement & Supplier Management",
-  "E-commerce & Retail Technology",
-  "HR Tech & Workforce Solutions",
-  "Enterprise Software & Automation",
-  "Sustainability & ESG Consulting",
-  "Market Research & Competitive Intelligence"
+"Customer Relationship Management Solutions",
+"Marketing Automation Platforms",
+"Sales Enablement Tools",
+"Financial Planning and Analysis Services",
+"Accounting and Bookkeeping Services",
+"Payroll Processing Services",
+"Recruitment and Talent Acquisition Services",
+"Project Management Tools",
+"Supply Chain Management Solutions",
+"Logistics and Transportation Services",
+"E-commerce Platforms",
+"Business Intelligence and Analytics Tools",
+"Enterprise Resource Planning (ERP) Systems",
+"Open-Source Intelligence (OSINT) Services",
+"Physical Security and Surveillance Systems",
+"Access Control Solutions",
+"Cybersecurity Services",
+'Cloud Computing Services",
+"Payment Processing Solutions",
+"Manufacturing Automation Solutions"
 ];
 
 const BuyerForm = () => {
